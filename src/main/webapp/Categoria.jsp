@@ -41,7 +41,7 @@
 		<div class="wrap-contact100">
 			<form class="contact100-form validate-form">
 				<span class="contact100-form-title">
-					Ingresa una Nueva Categoría hola mundo
+					Ingresa una Nueva Categoría
 				</span>
 
 				<label class="label-input100" for="nombre">Ingrese Nombre de Categoría *</label>
