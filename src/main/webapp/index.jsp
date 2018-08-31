@@ -23,8 +23,7 @@
             <div class="card-body">
          
                <h3>aqui va el contenido </h3>
-
-
+               
               </div>
             </div>
           </div>
