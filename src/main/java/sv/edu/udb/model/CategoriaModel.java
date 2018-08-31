@@ -1,9 +1,7 @@
 package sv.edu.udb.model;
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +20,7 @@ public class CategoriaModel extends Conexion {
         try {
             conectar();
             st = conexion.prepareStatement("select * from categoria");
-            rs = st.executeQuery("");
+            rs = st.executeQuery();
 
             while(rs.next()){
                 Categoria tmp = new Categoria();
