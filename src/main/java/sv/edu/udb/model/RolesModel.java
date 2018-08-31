@@ -27,7 +27,8 @@ public class RolesModel extends Conexion{
         st = conexion.prepareStatement(sql);
         st.setString(1, rol.getNombre());
         st.setString(2, rol.getDescripcion());        
-        filasAffec = st.executeUpdate();   
+        filasAffec = st.executeUpdate(); 
+        this.desconectar();
         return filasAffec;
     
     }
@@ -61,6 +62,53 @@ public class RolesModel extends Conexion{
             this.desconectar();
             return null;
         }   
+    }
+    
+    public  int eliminar(int id) throws SQLException{
+        int filasAffec = 0;
+        String sql="DELETE FROM `roles` WHERE id = ?";
+        this.conectar();
+        st = conexion.prepareStatement(sql);
+        st.setInt(1, id);
+        filasAffec = st.executeUpdate();
+        this.desconectar();
+        
+        return filasAffec;
+        
+    }
+    
+    public  int update(int id, Roles rol) throws SQLException{
+        int filasAffec = 0;
+        String sql ="UPDATE `roles` SET `nombre`=?,`descripcion`=? WHERE id = ?";
+        this.conectar();
+        st = conexion.prepareStatement(sql);
+        st.setString(1, rol.getNombre());
+        st.setString(2, rol.getDescripcion());
+        st.setInt(3, id);
+        filasAffec = st.executeUpdate();
+        
+        this.desconectar();
+        return filasAffec;      
+    
+    }
+    
+    public Roles findById(int id) throws SQLException{
+        String sql = "SELECT `id`, `nombre`, `descripcion` FROM `roles` WHERE id = ?";
+        this.conectar();
+        st= conexion.prepareStatement(sql);
+        st.setInt(1, id);
+        rs = st.executeQuery();
+        if (rs.next()) {
+            Roles rol = new Roles();
+            rol.setNombre(rs.getString("nombre"));
+            rol.setDescripcion(rs.getString("descripcion"));
+            
+            this.desconectar();
+            return rol;
+            
+        }
+        this.desconectar();
+        return null;
     }
     
 }
