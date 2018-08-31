@@ -13,7 +13,7 @@ public class Empresa {
     private int id;
     private String nombre;
     private String estado;
-    private String porcentaje;
+    private int porcentaje;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class Empresa {
         this.estado = estado;
     }
 
-    public String getPorcentaje() {
+    public int getPorcentaje() {
         return porcentaje;
     }
 
-    public void setPorcentaje(String porcentaje) {
+    public void setPorcentaje(int porcentaje) {
         this.porcentaje = porcentaje;
     }
     
