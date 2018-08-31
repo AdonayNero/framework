@@ -5,6 +5,11 @@ import java.sql.Date;
 
 /**
  *
+ * 
+ */
+
+/**
+ *
  * @author Victor Orellana
  */
 public class Venta {
