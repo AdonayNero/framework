@@ -5,7 +5,7 @@ import java.sql.Date;
 
 /**
  *
- * @author Edal Bonilla
+ * @author Victor Orellana
  */
 public class Venta {
     private String codigo;
@@ -62,5 +62,5 @@ public class Venta {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-       
+    
 }
