@@ -21,10 +21,16 @@
 </head>
 <body>
 
-
-
-	<div class="container-contact100">
-		<div class="wrap-contact100">
+	<div id="content-wrapper">
+            <div class="container-fluid">
+                     <div class="card mb-3">
+                            <div class="card-header">
+                                <i class="fas fa-table"></i>
+                                Bienvenido Prro
+                            </div>
+                            <div class="card-body">
+                                <div class="container-contact100">
+                                        <div class="wrap-contact100">
    <form action="${pageContext.request.contextPath}/roles.do" method="POST" class="contact100-form validate-form">
                 <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
@@ -99,8 +105,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+	
 
 
 

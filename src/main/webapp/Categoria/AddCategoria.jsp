@@ -16,7 +16,7 @@
     <jsp:include page="../pages/nav_folder.html" />
     </head>
     <body>
-         <div id="content-wrapper">
+        <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
                             <div class="card-header">
@@ -26,15 +26,7 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
 
-</head>
-<body>
-
-
-	<div class="container-contact100">
-		<div class="wrap-contact100">
 			
                      <form action="${pageContext.request.contextPath}/categoria.do" method="POST" class="contact100-form validate-form">
                 <input type="hidden" name="op" value="insertar">
