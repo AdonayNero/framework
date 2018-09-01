@@ -11,6 +11,7 @@
 	<title>Cuponera</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <jsp:include page="../pages/head_folder.html" />
     <jsp:include page="../pages/nav_folder.html" />
     </head>
@@ -27,6 +28,19 @@
                                         <div class="wrap-contact100">
 			<form class="contact100-form validate-form">
 				<span class="contact100-form-title">
+
+</head>
+<body>
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			
+                     <form action="${pageContext.request.contextPath}/categoria.do" method="POST" class="contact100-form validate-form">
+                <input type="hidden" name="op" value="insertar">
+                    
+                    <span class="contact100-form-title">
+
 					Ingresa una Nueva Categoría
 				</span>
 

@@ -72,19 +72,22 @@ public class CategoriaModel extends Conexion {
     
     
     /* Metodo para agregar categoria */
-    public void addCategoria(Categoria categoria) throws SQLException{
+    public int addCategoria(Categoria categoria) throws SQLException{
+        int filasAffec = 0;
         try {
-            conectar();
+            this.conectar();
             st = conexion.prepareStatement("insert into categoria (nombre, descripcion) values(?,?)");
             st.setString(1, categoria.getNombre());
             st.setString(2, categoria.getDescripcion());
             st.executeUpdate();    
 
-        desconectar();
+        this.desconectar();
+        return filasAffec;
         
         } catch (SQLException ex) {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
+            this.desconectar();
+            return filasAffec;
         }
     }
     
