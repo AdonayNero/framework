@@ -8,26 +8,26 @@
 <!DOCTYPE html>
 <html>
     <jsp:include page="./pages/head.html" />
-    
-     <jsp:include page="./pages/nav.html" />
+
+    <jsp:include page="./pages/nav.html" />
     <body>
-    <div id="content-wrapper">
+        <div id="content-wrapper">
 
-        <div class="container-fluid">
+            <div class="container-fluid">
 
-         <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-             Titulos wey 
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-table"></i>
+                        Bienvenido Prro
+                    </div>
+                    <div class="card-body">
+
+                        <h3>aqui va el contenido bien prron!! </h3>
+
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-         
-               <h3>aqui va el contenido </h3>
-               
-              </div>
-            </div>
-          </div>
 
-</body>
-     <jsp:include page="./pages/footer.html" />
+    </body>
+    <jsp:include page="./pages/footer.html" />
 </html>

@@ -1,6 +1,6 @@
  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+      <a class="navbar-brand mr-1" href="index.html">Cuponera</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -40,21 +40,10 @@
            <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="index.jsp">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>Menu Inicio</span>
           </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Usuarios</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Usuarios</a>
-            <a class="dropdown-item" href="register.html">Agregar Usuario</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Usuarios</a>
-          </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,9 +51,9 @@
             <span>Categorias</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Categorias</a>
-            <a class="dropdown-item" href="register.html">Agregar Categoria</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Categoria</a>
+            <a class="dropdown-item" href="Categoria/GetCategoria.jsp">Lista de Categorias</a>
+            <a class="dropdown-item" href="Categoria/AddCategoria.jsp">Agregar Categoria</a>
+            <a class="dropdown-item" href="Categoria/UpdateCategoria.jsp">Modificar Categoria</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -73,9 +62,9 @@
             <span>Detalles Cupon</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Cupones</a>
-            <a class="dropdown-item" href="register.html">Agregar Cupone</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Cupone</a>
+            <a class="dropdown-item" href="DetalleCupon/GetDetalleCupon.jsp">Lista de Cupones</a>
+            <a class="dropdown-item" href="DetalleCupon/AddDetalleCupon.jsp">Agregar Cupon</a>
+            <a class="dropdown-item" href="DetalleCupon/UpdateDetalleCupon.jsp">Modificar Cupon</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -84,9 +73,9 @@
             <span>Empresas</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Empresas</a>
-            <a class="dropdown-item" href="register.html">Agregar Empresa</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Empresa</a>
+            <a class="dropdown-item" href="Empresa/GetEmpresa.jsp">Lista de Empresas</a>
+            <a class="dropdown-item" href="Empresa/AddEmpresa.jsp">Agregar Empresa</a>
+            <a class="dropdown-item" href="Empresa/UpdateEmpresa.jsp">Modificar Empresa</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -95,7 +84,9 @@
             <span>Ofertas</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Ofertas</a>
+            <a class="dropdown-item" href="Oferta/GetOferta.jsp">Lista de Ofertas</a>
+            <a class="dropdown-item" href="Oferta/AddOferta.jsp">Agregar Oferta</a>
+            <a class="dropdown-item" href="Oferta/UpdateOferta.jsp">Modificar Oferta</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -104,9 +95,9 @@
             <span>Roles</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Roles</a>
-            <a class="dropdown-item" href="register.html">Agregar Rol</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Rol</a>
+            <a class="dropdown-item" href="Rol/GetRol.jsp">Lista de Roles</a>
+            <a class="dropdown-item" href="Rol/AddRol.jsp">Agregar Rol</a>
+            <a class="dropdown-item" href="Rol/UpdateRol.jsp">Modificar Rol</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -115,9 +106,20 @@
             <span>Sucursal</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Sucursales</a>
-            <a class="dropdown-item" href="register.html">Agregar Sucursal</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Sucursal</a>
+            <a class="dropdown-item" href="Sucursal/GetSucursal.jsp">Lista de Sucursales</a>
+            <a class="dropdown-item" href="Sucursal/AddSucursal.jsp">Agregar Sucursal</a>
+            <a class="dropdown-item" href="Sucursal/UpdateSucursal.jsp">Modificar Sucursal</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Usuarios</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="Usuario/GetUsuario.jsp">Lista de Usuarios</a>
+            <a class="dropdown-item" href="Usuario/AddUsuario.jsp">Agregar Usuario</a>
+            <a class="dropdown-item" href="Usuario/UpdateUsuario.jsp">Modificar Usuarios</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -126,9 +128,9 @@
             <span>Ventas</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Lista de Ventas</a>
-            <a class="dropdown-item" href="register.html">Agregar Venta</a>
-            <a class="dropdown-item" href="forgot-password.html">Modificar Venta</a>
+            <a class="dropdown-item" href="Venta/GetVenta.jsp">Lista de Ventas</a>
+            <a class="dropdown-item" href="Venta/AddVenta.jsp">Agregar Venta</a>
+            <a class="dropdown-item" href="Venta/UpdateVenta.jsp">Modificar Venta</a>
           </div>
         </li>
         
