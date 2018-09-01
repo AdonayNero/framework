@@ -39,7 +39,8 @@
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+                    <form action="${pageContext.request.contextPath}/roles.do" method="POST" class="contact100-form validate-form">
+                                <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
 					Insertar un Nuevo Rol
 				</span>
