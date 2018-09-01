@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sv.edu.udb.controller;
 
 import java.io.IOException;
@@ -16,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sv.edu.udb.model.RolesModel;
+import sv.edu.udb.pojo.Roles;
 
 /**
  *
@@ -34,6 +31,7 @@ public class RolesController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     RolesModel modelo = new RolesModel();
+    Roles rol = null;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -50,7 +48,7 @@ public class RolesController extends HttpServlet {
                     listar(request, response);
                     break;
                 case "nuevo":
-                    request.getRequestDispatcher("/autores/nuevoAutor.jsp").forward(request, response);
+                    request.getRequestDispatcher("/Rol/AddRol.jsp").forward(request, response);
                     break;
                 case "insertar":
                     insertar(request, response);
@@ -110,14 +108,28 @@ public class RolesController extends HttpServlet {
     private void listar(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.setAttribute("listaRoles", modelo.listar());
-            request.getRequestDispatcher("/roles/listaRoles.jsp").forward(request, response);
+            request.getRequestDispatcher("/Rol/GetRol.jsp").forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void insertar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void insertar(HttpServletRequest request, HttpServletResponse response)  {
+        
+        try {
+            rol = new Roles();
+            
+            rol.setNombre(request.getParameter("nombre"));
+            rol.setDescripcion(request.getParameter("descripcion"));
+            
+            if (modelo.insertar(rol)>0) {
+                response.sendRedirect(request.getContextPath() +"/roles.do?op=listar");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
