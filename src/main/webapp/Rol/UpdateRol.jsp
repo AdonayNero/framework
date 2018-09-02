@@ -3,7 +3,7 @@
     Created on : 31-ago-2018, 16:30:58
     Author     : Manuel Orellana
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,28 +26,42 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
+                                            <c:if test="${not empty listaErrores}">
+                    <div class="alert alert-danger">
+                        <ul>
+                            <c:forEach var="errores"  items="${requestScope.listaErrores}">
+                                <li>${errores}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    </c:if>
 	
-			<form class="contact100-form validate-form">
+                        <form action="${pageContext.request.contextPath}/roles.do" method="POST" class="contact100-form validate-form">
+                                <input type="hidden"  name="op" value="modificar">
 				<span class="contact100-form-title">
 					Modificar Rol
 				</span>
+                                
+                                <input type="hidden"  name="id" value="${rol.id}">
 
 				<label class="label-input100" for="nombre">Seleccione el Nivel de Acceso *</label>
 				<div class="wrap-input100 validate-input" data-validate="Seleccione el Nivel de Acceso">
-                                    <input id="nombre" class="input100" name="nombre" value=""/>
+                                    <input id="nombre" class="input100" name="nombre" value="${rol.nombre}"/>
                                             <span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="descripcion">Descripción *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es Requerida una Descripción ">
-                                    <input id="descripcion" class="input100" name="descripcion" value="">
+                                    <input id="descripcion" class="input100" name="descripcion" value="${rol.descripcion}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
-						Enviar Rol
+						Editar Rol
 					</button>
+                                    </br>
+                                    <a href="${pageContext.request.contextPath}/roles.do" class="btn btn-danger" >Cancelar</a>
 				</div>
 			</form>
 
@@ -113,7 +127,7 @@
 
 	<div id="dropDownSelect1"></div>
 
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"/>
 	<script>
 		$(".selection-2").select2({
 			minimumResultsForSearch: 20,

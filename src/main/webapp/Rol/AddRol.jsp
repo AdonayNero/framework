@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +40,15 @@
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">
+                    <c:if test="${not empty listaErrores}">
+                        <div class="alert alert-danger">
+                            <ul>
+                                <c:forEach var="errores"  items="${requestScope.listaErrores}">
+                                    <li> ${errores}</li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:if>
                     <form action="${pageContext.request.contextPath}/roles.do" method="POST" class="contact100-form validate-form">
                                 <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
@@ -47,17 +57,13 @@
 
 				<label class="label-input100" for="nombre">Seleccione el Nivel de Acceso *</label>
 				<div class="wrap-input100 validate-input" data-validate="Seleccione el Nivel de Acceso">
-					<select id="nombre" class="form-control" name="nombre">
-                                            <option selected>Seleccione el Nivel de Acceso</option>
-                                            <option value="admin">Administrador</option>
-                                            <option value="cliente">Cliente</option>
-                                        </select>
+                                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese un nuevo rol" value="${rol.nombre}"/>
                                         <span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="descripcion">Descripción *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es Requerida una Descripción ">
-					<textarea id="descripcion" class="input100" name="descripcion" placeholder="Escriba una descripción"></textarea>
+					<textarea id="descripcion" class="input100" name="descripcion" placeholder="Escriba una descripción">${rol.descripcion}</textarea>
 					<span class="focus-input100"></span>
 				</div>
 

@@ -125,37 +125,94 @@ public class RolesController extends HttpServlet {
             rol.setNombre(request.getParameter("nombre"));
             rol.setDescripcion(request.getParameter("descripcion"));
             
+            System.out.println(rol.getNombre());
+            System.out.println(rol.getDescripcion());
+            
             if (Validaciones.isEmpty(rol.getNombre())) {
                 listaErrores.add("El Nombre es Obligatorio");
-            } else if (!Validaciones.esCodigoAutor(request.getParameter("descripcion"))) {
-                listaErrores.add("El codigo de la autor debe tener el formato correcto AUT000");
+            } 
+            if (Validaciones.isEmpty(rol.getDescripcion())) {
+                listaErrores.add("La descripcion es obligatoria");
             }
             if (listaErrores.size() > 0) {
                 request.setAttribute("listaErrores", listaErrores);
-                request.setAttribute("autor", rol);
-                request.getRequestDispatcher("autores.do?op=nuevo").forward(request, response);
+                request.setAttribute("rol", rol);
+                request.getRequestDispatcher("roles.do?op=nuevo").forward(request, response);
+                
             } else
             
             if (modelo.insertar(rol)>0) {
                 response.sendRedirect(request.getContextPath() +"/roles.do?op=listar");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            rol = modelo.findById(id);
+            if (rol != null) {
+                request.setAttribute("rol", rol);
+                request.getRequestDispatcher("Rol/UpdateRol.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+       listaErrores.clear();
+       rol = new Roles();
+       rol.setId(Integer.parseInt(request.getParameter("id")));
+       rol.setNombre(request.getParameter("nombre"));
+       rol.setDescripcion(request.getParameter("descripcion"));
+           System.out.println(rol.getId());
+           System.out.println(rol.getNombre());
+       
+        if (Validaciones.isEmpty(rol.getNombre())) {
+                listaErrores.add("El Nombre es Obligatorio");
+            } 
+            if (Validaciones.isEmpty(rol.getDescripcion())) {
+                listaErrores.add("La descripcion es obligatoria");
+            }
+            if (listaErrores.size() > 0) {
+                request.setAttribute("listaErrores", listaErrores);
+                request.setAttribute("rol", rol);
+                request.getRequestDispatcher("roles.do?op=modificar").forward(request, response);
+                
+            } else
+            
+            if (modelo.update(rol)>0) {
+                response.sendRedirect(request.getContextPath() +"/roles.do?op=listar");
+            }
+            } catch (SQLException | IOException | ServletException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            if (modelo.eliminar(id) > 0) {
+                request.setAttribute("exito", "genero eliminado exitosamente");
+                
+            } else {
+                request.setAttribute("fracaso", "No se puede eliminar este genero");
+            }
+            request.getRequestDispatcher("/generos.do?op=listar").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

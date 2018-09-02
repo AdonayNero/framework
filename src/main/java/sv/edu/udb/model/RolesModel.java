@@ -77,14 +77,14 @@ public class RolesModel extends Conexion{
         
     }
     
-    public  int update(int id, Roles rol) throws SQLException{
+    public  int update(Roles rol) throws SQLException{
         int filasAffec = 0;
         String sql ="UPDATE `roles` SET `nombre`=?,`descripcion`=? WHERE id = ?";
         this.conectar();
         st = conexion.prepareStatement(sql);
         st.setString(1, rol.getNombre());
         st.setString(2, rol.getDescripcion());
-        st.setInt(3, id);
+        st.setInt(3, rol.getId());
         filasAffec = st.executeUpdate();
         
         this.desconectar();
@@ -100,6 +100,7 @@ public class RolesModel extends Conexion{
         rs = st.executeQuery();
         if (rs.next()) {
             Roles rol = new Roles();
+            rol.setId(rs.getInt("id"));
             rol.setNombre(rs.getString("nombre"));
             rol.setDescripcion(rs.getString("descripcion"));
             

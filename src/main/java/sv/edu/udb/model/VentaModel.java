@@ -14,7 +14,7 @@ import sv.edu.udb.pojo.Venta;
 public class VentaModel extends Conexion{
  
     /* Metodo para mostrar las ventas existentes */
-    public ArrayList<Venta> getVenta() throws  SQLException{
+    public ArrayList<Venta> listar() throws  SQLException{
         
         ArrayList<Venta> ventas = new ArrayList();
         try {
