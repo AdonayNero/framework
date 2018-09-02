@@ -46,7 +46,7 @@ public class VentaModel extends Conexion{
     
     
     /* Metodo para mostrar la venta por codigo */
-    public Venta getVentaById(int codigo) throws SQLException{
+    public Venta findById(int codigo) throws SQLException{
         
         Venta venta = null;
         try {
@@ -78,7 +78,8 @@ public class VentaModel extends Conexion{
     
     
     /* Metodo para agregar venta */
-    public void addVenta(Venta venta) throws SQLException{
+    public int insertar(Venta venta) throws SQLException{
+        int filasAffec=0;
         try {
             conectar();
             st = conexion.prepareStatement("insert into venta (idCliente, idDetalleCupon, FechHrVenta, Formapago, Estado) values(?,?,?,?,?)");
@@ -87,7 +88,7 @@ public class VentaModel extends Conexion{
             st.setDate(3, venta.getFechaVenta());
             st.setString(4, venta.getFormaPago());
             st.setString(5, venta.getEstado());
-            st.executeUpdate();    
+            filasAffec = st.executeUpdate();    
 
         desconectar();
         
@@ -95,11 +96,13 @@ public class VentaModel extends Conexion{
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
     
     /* Metodo para actualizar venta */
-    public void updateCategoria(Venta venta) throws SQLException{
+    public int update(Venta venta) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("update venta set idCliente = ?, idDetalleCupon = ?, FechHrVenta = ?, Formapago = ?, Estado = ? where CodigoCupon = ?");
@@ -109,7 +112,7 @@ public class VentaModel extends Conexion{
             st.setString(4, venta.getFormaPago());
             st.setString(5, venta.getEstado());
             st.setString(6, venta.getCodigo());
-            st.executeUpdate();
+            filasAffec = st.executeUpdate();
         
         desconectar();   
         
@@ -117,16 +120,18 @@ public class VentaModel extends Conexion{
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
     
     /* Metodo para eliminar venta */
-    public void deleteVenta(int codigo) throws SQLException{
+    public int eliminar(int codigo) throws SQLException{
+        int filasAffec =0;
         try {
             conectar();
             st = conexion.prepareStatement("delete from venta where CodigoCupon = ?");
             st.setInt(1, codigo);
-            st.execute();
+            filasAffec = st.executeUpdate();
             
         desconectar();
             
@@ -134,6 +139,7 @@ public class VentaModel extends Conexion{
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return  filasAffec;
     }
     
 }

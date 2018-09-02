@@ -16,7 +16,7 @@ import sv.edu.udb.pojo.Sucursal;
 public class SucursalModel extends Conexion {
         
     /* Metodo para mostrar las sucursals existentes */
-    public ArrayList<Sucursal> getSucursal() throws  SQLException{
+    public ArrayList<Sucursal> listar() throws  SQLException{
         
         ArrayList<Sucursal> sucursales = new ArrayList();
         try {
@@ -48,7 +48,7 @@ public class SucursalModel extends Conexion {
     
     
     /* Metodo para mostrar las sucursal por id */
-    public Sucursal getSucursalById(int id) throws SQLException{
+    public Sucursal findById(int id) throws SQLException{
         
         Sucursal sucursal = null;
         try {
@@ -79,7 +79,8 @@ public class SucursalModel extends Conexion {
     
     
     /* Metodo para agregar sucursal */
-    public void addSucursal(Sucursal sucursal) throws SQLException{
+    public int insertar(Sucursal sucursal) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("insert into sucursal (idEmpresa, correo, telefono, direccion) values(?,?,?,?)");
@@ -87,7 +88,7 @@ public class SucursalModel extends Conexion {
             st.setString(2, sucursal.getCorreo());
             st.setString(3, sucursal.getTelefono());
             st.setString(4, sucursal.getDireccion());
-            st.executeUpdate();    
+            filasAffec = st.executeUpdate();    
 
         desconectar();
         
@@ -95,11 +96,13 @@ public class SucursalModel extends Conexion {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
     
     /* Metodo para actualizar sucursal */
-    public void updateSucursal(Sucursal sucursal) throws SQLException{
+    public int update(Sucursal sucursal) throws SQLException{
+        int filasAffect = 0;
         try {
             conectar();
             st = conexion.prepareStatement("update sucursal set idEmpresa = ?, correo = ?, telefono = ?, direccion = ? where idSucursal = ?");
@@ -108,7 +111,7 @@ public class SucursalModel extends Conexion {
             st.setString(3, sucursal.getTelefono());
             st.setString(4, sucursal.getDireccion());
             st.setInt(5, sucursal.getId());
-            st.executeUpdate();
+            filasAffect=st.executeUpdate();
         
         desconectar();   
         
@@ -116,16 +119,18 @@ public class SucursalModel extends Conexion {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffect;
     }
     
     
     /* Metodo para eliminar sucursal */
-    public void deleteSucursal(int id) throws SQLException{
+    public int eliminar(int id) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("delete from sucursal where idSucursal = ?");
             st.setInt(1, id);
-            st.execute();
+            filasAffec = st.executeUpdate();
             
         desconectar();
             
@@ -133,6 +138,7 @@ public class SucursalModel extends Conexion {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
 }

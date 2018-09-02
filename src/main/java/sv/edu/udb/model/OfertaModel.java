@@ -14,7 +14,7 @@ import sv.edu.udb.pojo.Oferta;
 public class OfertaModel extends Conexion{
     
     /* Metodo para mostrar las ofertas existentes */
-    public ArrayList<Oferta> getOferta() throws  SQLException{
+    public ArrayList<Oferta> listar() throws  SQLException{
         
         ArrayList<Oferta> ofertas = new ArrayList();
         try {
@@ -50,7 +50,7 @@ public class OfertaModel extends Conexion{
     
     
     /* Metodo para mostrar las ofertas por id */
-    public Oferta getOfertaById(int id) throws SQLException{
+    public Oferta findById(int id) throws SQLException{
         
         Oferta oferta = null;
         try {
@@ -86,7 +86,8 @@ public class OfertaModel extends Conexion{
     
     
     /* Metodo para agregar oferta */
-    public void addOferta(Oferta oferta) throws SQLException{
+    public int insertar(Oferta oferta) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("insert into oferta (Titulo, subTitulo, img, detalleGenerales, descripcion, valorNormal, valorOferta, Estado, Observaciones) values(?,?,?,?,?,?,?,?,?)");
@@ -99,7 +100,7 @@ public class OfertaModel extends Conexion{
             st.setDouble(7, oferta.getValorOferta());
             st.setString(8, oferta.getEstado());
             st.setString(9, oferta.getObservaciones());
-            st.executeUpdate();    
+            filasAffec= st.executeUpdate();    
 
         desconectar();
         
@@ -107,11 +108,12 @@ public class OfertaModel extends Conexion{
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
     
     /* Metodo para actualizar oferta */
-    public void updateOferta(Oferta oferta) throws SQLException{
+    public void update(Oferta oferta) throws SQLException{
         try {
             conectar();
             st = conexion.prepareStatement("update oferta set Titulo = ?, subTitulo = ?, img = ?, detalleGenerales = ?, descripcion = ?, valorNormal = ?, valorOferta = ?, Estado = ?, Observaciones = ? where idOferta = ?");
@@ -137,7 +139,7 @@ public class OfertaModel extends Conexion{
     
     
     /* Metodo para eliminar oferta */
-    public void deleteOferta(int id) throws SQLException{
+    public void eliminar(int id) throws SQLException{
         try {
             conectar();
             st = conexion.prepareStatement("delete from oferta where idOferta = ?");

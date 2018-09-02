@@ -14,7 +14,7 @@ import sv.edu.udb.pojo.Categoria;
 public class CategoriaModel extends Conexion {
         
     /* Metodo para mostrar las categorias existentes */
-    public ArrayList<Categoria> getCategoria() throws  SQLException{
+    public ArrayList<Categoria> listar() throws  SQLException{
         
         ArrayList<Categoria> categorias = new ArrayList();
         try {
@@ -43,7 +43,7 @@ public class CategoriaModel extends Conexion {
     
     
     /* Metodo para mostrar la categoria por idCategoria */
-    public Categoria getCategoriaById(int idCategoria) throws SQLException{
+    public Categoria findById(int idCategoria) throws SQLException{
         
         Categoria categoria = null;
         try {
@@ -72,32 +72,36 @@ public class CategoriaModel extends Conexion {
     
     
     /* Metodo para agregar categoria */
-    public void addCategoria(Categoria categoria) throws SQLException{
+    public int insertar(Categoria categoria) throws SQLException{
+        int filasAffec = 0;
         try {
-            conectar();
+            this.conectar();
             st = conexion.prepareStatement("insert into categoria (nombre, descripcion) values(?,?)");
             st.setString(1, categoria.getNombre());
             st.setString(2, categoria.getDescripcion());
-            st.executeUpdate();    
+            filasAffec = st.executeUpdate();    
 
-        desconectar();
+        this.desconectar();
+        return filasAffec;
         
         } catch (SQLException ex) {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
+            this.desconectar();
+            return filasAffec;
         }
     }
     
     
     /* Metodo para actualizar categoria */
-    public void updateCategoria(Categoria categoria) throws SQLException{
+    public int update(Categoria categoria) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("update categoria set nombre = ?, descripcion = ? where idCategoria = ?");
             st.setString(1, categoria.getNombre());
             st.setString(2, categoria.getDescripcion());
             st.setInt(3, categoria.getId());
-            st.executeUpdate();
+            filasAffec = st.executeUpdate();
         
         desconectar();   
         
@@ -105,16 +109,19 @@ public class CategoriaModel extends Conexion {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        
+        return filasAffec;
     }
     
     
     /* Metodo para eliminar categoria */
-    public void deleteCategoria(int idCategoria) throws SQLException{
+    public int eliminar(int idCategoria) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("delete from categoria where idCategoria = ?");
             st.setInt(1, idCategoria);
-            st.execute();
+            filasAffec = st.executeUpdate();
             
         desconectar();
             
@@ -122,6 +129,7 @@ public class CategoriaModel extends Conexion {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
+        return filasAffec;
     }
     
 }
