@@ -8,13 +8,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        
     <jsp:include page="../pages/head_folder.html" />
-    <jsp:include page="../pages/nav_folder.html" />
+    
     </head>
     <body>
+        <jsp:include page="../pages/nav_folder.html" />
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -31,6 +30,7 @@
                                         
                                       <thead>
                                         <tr>
+                                          <th>#</th>
                                           <th>Nombre</th>
                                           <th>descripcion</th>
                                           <th>Operaciones</th>
@@ -40,8 +40,9 @@
 
                                           <tbody>
                                               
-                                        <c:forEach items="${requestScope.listaRoles}" var="rol">
+                                              <c:forEach items="${requestScope.listaRoles}" var="rol" varStatus="i">
                                             <tr>
+                                                    <td>${i.count}</td>
                                                    <td>${rol.nombre}</td>
                                                    <td>${rol.descripcion}</td>
                                                    <td>
@@ -70,15 +71,15 @@
                            <c:set var="fracaso" value="" scope="session" />
                        </c:if>
          function eliminar(id){
-           alertify.confirm("¿Realmente decea eliminar este Autor?", function(e){
+           alertify.confirm("¿Realmente decea eliminar este Rol?", function(e){
               if(e){
-                  location.href="autores.do?op=eliminar&id="+ id;
+                  location.href="roles.do?op=eliminar&id="+ id;
               } 
            });
   }
         </script>
         </div>
-            
+     <jsp:include page="../pages/footer_folder.html" />        
     </body>
-     <jsp:include page="../pages/footer_folder.html" />
+    
 </html>

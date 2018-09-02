@@ -209,7 +209,7 @@ public class RolesController extends HttpServlet {
             } else {
                 request.setAttribute("fracaso", "No se puede eliminar este genero");
             }
-            request.getRequestDispatcher("/generos.do?op=listar").forward(request, response);
+            request.getRequestDispatcher("/roles.do?op=listar").forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(RolesController.class.getName()).log(Level.SEVERE, null, ex);
         }

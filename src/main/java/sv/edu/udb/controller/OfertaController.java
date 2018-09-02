@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Edal Bonilla
  */
-@WebServlet(name = "EmpresaModel", urlPatterns = {"/empresa.do"})
-public class EmpresaModel extends HttpServlet {
+@WebServlet(name = "OfertaController", urlPatterns = {"/oferta.do"})
+public class OfertaController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +34,7 @@ public class EmpresaModel extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             if(request.getParameter("op")==null){
+            if(request.getParameter("op")==null){
             listar(request, response);
             return;
             }
@@ -45,7 +45,7 @@ public class EmpresaModel extends HttpServlet {
                     listar(request, response);
                     break;
                 case "nuevo":
-                    request.getRequestDispatcher("/Empresa/AddEmpresa.jsp").forward(request, response);
+                    request.getRequestDispatcher("/Rol/AddRol.jsp").forward(request, response);
                     break;
                 case "insertar":
                     insertar(request, response);
