@@ -7,11 +7,18 @@ package sv.edu.udb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sv.edu.udb.model.RolesModel;
+import sv.edu.udb.model.UsuarioModel;
+import sv.edu.udb.pojo.Usuario;
 
 /**
  *
@@ -29,6 +36,10 @@ public class UsuarioController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    UsuarioModel modelo = new UsuarioModel();
+    Usuario user =  null;
+    RolesModel rolModelo = new RolesModel();
+    ArrayList<String> listaErrores = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,7 +56,9 @@ public class UsuarioController extends HttpServlet {
                     listar(request, response);
                     break;
                 case "nuevo":
-                    request.getRequestDispatcher("/Rol/AddRol.jsp").forward(request, response);
+                    
+                    nuevo(request, response);
+                    
                     break;
                 case "insertar":
                     insertar(request, response);
@@ -103,11 +116,35 @@ public class UsuarioController extends HttpServlet {
     }// </editor-fold>
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            request.setAttribute("listaUsuario", modelo.listar());
+            request.getRequestDispatcher("/Usuario/GetUsuario.jsp").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+                
+        try {
+            listaErrores.clear();
+            user = new Usuario();
+            user.setNombre(request.getParameter("nombre"));
+            user.setTelefono(request.getParameter("telefono"));
+            user.setEmail(request.getParameter("email"));
+            user.setPass(request.getParameter("pass"));
+            user.setTipoAcceso( Integer.parseInt(request.getParameter("tipoAcceso")));
+            user.setFoto(request.getParameter("foto"));
+            user.setDui(request.getParameter("dui"));
+            user.setDireccion(request.getParameter("direccion"));
+            if (modelo.insertar(user)>0) {
+                response.sendRedirect(request.getContextPath() +"/usuario.do?op=listar");
+            }
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
@@ -120,6 +157,15 @@ public class UsuarioController extends HttpServlet {
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void nuevo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setAttribute("listaRoles", rolModelo.listar());
+            request.getRequestDispatcher("/Usuario/AddUsuario.jsp").forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

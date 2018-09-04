@@ -14,8 +14,9 @@ import sv.edu.udb.pojo.Usuario;
  *
  * @author Edwin Bonilla
  */
+
 public class UsuarioModel extends Conexion{
-    
+    RolesModel rol = new RolesModel();
     public int insertar( Usuario user) throws SQLException{
         int filasAffec = 0;
         String sql = "INSERT INTO `usuario`(`nombre`, `telefono`, `email`, `pass`, `estado`, `tipoAcceso`, `fotoPerfil`, `token`, `dui`, `direccion`) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -25,10 +26,10 @@ public class UsuarioModel extends Conexion{
         st.setString(2, user.getTelefono());
         st.setString(3, user.getEmail());
         st.setString(4, user.getPass());
-        st.setString(5, user.getEstado());
+        st.setString(5, "inactivo");
         st.setInt(6, user.getTipoAcceso());
         st.setString(7, user.getFoto());
-        st.setString(8, user.getToken());
+        st.setString(8, "token1");
         st.setString(9, user.getDui());
         st.setString(10, user.getDireccion());
         
@@ -59,6 +60,7 @@ public class UsuarioModel extends Conexion{
             user.setToken(rs.getString(9));
             user.setDui(rs.getString(10));
             user.setDireccion(rs.getString(11));
+            user.setRol(rol.findById(rs.getInt(7)));
             usuarios.add(user);
         }
         

@@ -15,15 +15,16 @@ public class CategoriaModel extends Conexion {
         
     /* Metodo para mostrar las categorias existentes */
     public ArrayList<Categoria> listar() throws  SQLException{
-        
+        Categoria tmp = null;
         ArrayList<Categoria> categorias = new ArrayList();
+        String sql ="SELECT * FROM `categoria`";
         try {
-            conectar();
-            st = conexion.prepareStatement("select * from categoria");
+            this.conectar();
+            st = conexion.prepareStatement(sql);
             rs = st.executeQuery();
 
             while(rs.next()){
-                Categoria tmp = new Categoria();
+                tmp = new Categoria();
                 tmp.setId(rs.getInt("idCategoria"));
                 tmp.setNombre(rs.getString("nombre"));
                 tmp.setDescripcion(rs.getString("descripcion"));
@@ -31,7 +32,7 @@ public class CategoriaModel extends Conexion {
                 categorias.add(tmp);
             }
         
-        desconectar();
+        this.desconectar(); 
         return categorias;
         
         } catch (SQLException ex) {

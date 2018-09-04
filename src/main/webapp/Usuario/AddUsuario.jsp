@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,7 +26,8 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form action="${pageContext.request.contextPath}/usuario.do" method="POST" class="contact100-form validate-form">
+                                <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
 					Ingrese un Nuevo Usuario
 				</span>
@@ -35,11 +37,7 @@
 					<input id="nombre" class="input100" type="text" name="nombre" placeholder="Nombre">
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Escriba su apellido">
-					<input class="input100" type="text" name="apellido" placeholder="Apellidos">
-					<span class="focus-input100"></span>
-				</div>
-
+				
 				<label class="label-input100" for="email">Ingrese su correo *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido un correo valido: ex@abc.xyz">
                                     <input id="email" class="input100" type="email" name="email" placeholder="Ej. example@email.com">
@@ -63,22 +61,14 @@
 					<span class="focus-input100"></span>
 				</div>
                                                 
-                                <label class="label-input100" for="estado">Selecciona un Estado *</label>
-				<div class="wrap-input100 validate-input" data-validate = "Es requerido el estado">
-                                    <Select id="estado" class="form-control" name="estado">
-                                        <option selected>Seleccione un estado</option>
-                                        <option value="activo">Activo</option>
-                                        <option value="no activo">No Activo</option>
-                                    </select>
-                                        <span class="focus-input100"></span>
-				</div>
-                                
                                 <label class="label-input100" for="tipoAcceso">Selecciona el Tipo de Acceso *</label>
 				<div class="wrap-input100 validate-input" data-validate="Selecciona un tipo de acceso">
 					<select id="tipoAcceso" class="form-control" name="tipoAcceso">
                                             <option selected>Seleccione un Tipo de Acceso</option>
-                                            <option value="admin">Administrador</option>
-                                            <option value="cliente">Cliente</option>
+                                            <c:forEach items="${requestScope.listaRoles}" var="rol" varStatus="i">
+                                            <option value="${rol.id}">${rol.nombre}</option>
+                                            
+                                            </c:forEach>
                                         </select>
                                         <span class="focus-input100"></span>
 				</div>

@@ -204,10 +204,10 @@ public class RolesController extends HttpServlet {
         try {
             int id = Integer.parseInt( request.getParameter("id"));
             if (modelo.eliminar(id) > 0) {
-                request.setAttribute("exito", "genero eliminado exitosamente");
+                request.setAttribute("exito", "rol eliminado exitosamente");
                 
             } else {
-                request.setAttribute("fracaso", "No se puede eliminar este genero");
+                request.setAttribute("fracaso", "No se puede eliminar este rol");
             }
             request.getRequestDispatcher("/roles.do?op=listar").forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
