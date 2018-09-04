@@ -7,11 +7,21 @@ package sv.edu.udb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import sv.edu.udb.model.EmpresaModel;
+
+import sv.edu.udb.pojo.Empresa;
+
+import sv.edu.udb.www.utils.Validaciones;
 
 /**
  *
@@ -29,6 +39,9 @@ public class EmpresaController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    EmpresaModel modelo = new EmpresaModel();
+    Empresa empresa = null;
+    ArrayList<String> listaErrores = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -102,24 +115,82 @@ public class EmpresaController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void listar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     private void insertar(HttpServletRequest request, HttpServletResponse response){
+    
+        try{
+            empresa = new Empresa();
+            empresa.setNombre(request.getParameter("nombre")); 
+            empresa.setEstado(request.getParameter("estado"));
+            empresa.setPorcentaje(Integer.parseInt(request.getParameter("porcentaje")));
+    
+        if (modelo.insertar(empresa)>0) {
+                response.sendRedirect(request.getContextPath() +"/empresa.do?op=listar");
+            }
+   }    catch (SQLException | IOException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void insertar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            empresa = modelo.findById(id);
+            if (empresa != null) {
+                request.setAttribute("empresa", empresa);
+                request.getRequestDispatcher("Empresa/UpdateEmpresa.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (IOException | ServletException | SQLException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            listaErrores.clear();
+            empresa = new Empresa();
+            empresa.setId(Integer.parseInt(request.getParameter("id")));
+            empresa.setNombre(request.getParameter("nombre")); 
+            empresa.setEstado(request.getParameter("estado"));
+            empresa.setPorcentaje(Integer.parseInt(request.getParameter("porcentaje")));
+     
+        if(modelo.update(empresa)>0) {
+                response.sendRedirect(request.getContextPath() +"/empresa.do?op=listar");
+            }
+    }   catch (IOException | SQLException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            if (modelo.eliminar(id) > 0) {
+                request.setAttribute("exito", "empresa eliminado exitosamente");
+                
+            } else {
+                request.setAttribute("fracaso", "No se puede eliminar este rol");
+            }
+            request.getRequestDispatcher("/empresa.do?op=listar").forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void listar(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setAttribute("listarEmpresa", modelo.listar());
+            request.getRequestDispatcher("/Empresa/GetEmpresa.jsp").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        //To change body of generated methods, choose Tools | Templates.
+        
+             //To change body of generated methods, choose Tools | Templates.
     }
 
 }

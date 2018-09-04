@@ -25,14 +25,15 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form action="${pageContext.request.contextPath}/empresa.do" class="contact100-form validate-form">
+                             <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
 					Ingresa una Nueva Empresa
 				</span>
 
 				<label class="label-input100" for="nombre">Ingrese Nombre de Empresa *</label>
 				<div class="wrap-input100 validate-input" data-validate="Escriba el nombre de la empresa">
-					<input id="nombre" class="input100" type="text" name="nombre" placeholder="Nombre de Empresa">
+					<input id="nombre" class="input100" type="text" value="${empresa.nombre}" name="nombre" placeholder="Nombre de Empresa">
 					<span class="focus-input100"></span>
 				</div>
 
@@ -48,7 +49,7 @@
 
 				<label class="label-input100" for="porcentaje">Ingrese Porcentaje (%) *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el porcemtaje">
-					<input id="porcentaje" class="input100" type="text" name="porcentaje" placeholder="25">
+					<input id="porcentaje" class="input100" type="text" name="porcentaje" placeholder="25" value="${emoresa.porcentaje}">
 					<span class="focus-input100"></span>
 				</div>
 

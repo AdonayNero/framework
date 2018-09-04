@@ -7,8 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sv.edu.udb.pojo.Empresa;
 import sv.edu.udb.pojo.Sucursal;
-
+import sv.edu.udb.model.EmpresaModel;
 /**
  *
  * @author Manuel Orellana
@@ -16,31 +17,38 @@ import sv.edu.udb.pojo.Sucursal;
 public class SucursalModel extends Conexion {
         
     /* Metodo para mostrar las sucursals existentes */
+    EmpresaModel emp = new EmpresaModel();
+    UsuarioModel emp2 = new UsuarioModel();
     public ArrayList<Sucursal> listar() throws  SQLException{
-        
+        Sucursal tmp = null;
         ArrayList<Sucursal> sucursales = new ArrayList();
         try {
-            conectar();
+            this.conectar();
             st = conexion.prepareStatement("select * from sucursal");
             rs = st.executeQuery();
 
             while(rs.next()){
-                Sucursal tmp = new Sucursal();
+                tmp = new Sucursal();
                 tmp.setId(rs.getInt("idSucursal"));
                 tmp.setIdEmpresa(rs.getInt("idEmpresa"));
-                tmp.setCorreo(rs.getString("correo"));
-                tmp.setTelefono(rs.getString("telefono"));
-                tmp.setDireccion(rs.getString("direccion"));
+                tmp.setCorreo(rs.getString("Correo"));
+                tmp.setTelefono(rs.getString("Telefono"));
+                tmp.setDireccion(rs.getString("Direccion"));
                 tmp.setIdEncargado(rs.getInt("idEncargado"));
-
+                tmp.setEmpresa(emp.findById(rs.getInt("idEmpresa")));
+                tmp.setUsuario(emp2.findById(rs.getInt("idEncargado")));
                 sucursales.add(tmp);
+                
+               
+                 
+                
             }
         
-        desconectar();
+        this.desconectar();
         return sucursales;
         
         } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SucursalModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
             return null;
         }

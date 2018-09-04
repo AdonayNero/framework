@@ -26,14 +26,16 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form class="contact100-form validate-form" action=" ${pageContext.request.contextPath}/empresa.do" method="POST">
+                            <input type="hidden"  name="op" value="modificar">
 				<span class="contact100-form-title">
 					Modificar Empresa
 				</span>
+                              <input type="hidden"  name="id" value="${empresa.id}">
 
 				<label class="label-input100" for="nombre">Ingrese Nombre de Empresa *</label>
 				<div class="wrap-input100 validate-input" data-validate="Escriba el nombre de la empresa">
-                                    <input id="nombre" class="input100" type="text" name="nombre" value="">
+                                    <input id="nombre" class="input100" type="text" name="nombre" value="${empresa.nombre}">
 					<span class="focus-input100"></span>
 				</div>
 
@@ -48,7 +50,7 @@
 
 				<label class="label-input100" for="porcentaje">Ingrese Porcentaje (%) *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el porcemtaje">
-                                    <input id="porcentaje" class="input100" type="text" name="porcentaje" value="">
+                                    <input id="porcentaje" class="input100" type="text" name="porcentaje" value="${empresa.porcentaje}">
 					<span class="focus-input100"></span>
 				</div>
 
@@ -56,6 +58,8 @@
 					<button class="contact100-form-btn">
 						Enviar Empresa
 					</button>
+                                    </br>
+                                    <a href="${pageContext.request.contextPath}/empresa.do" class="btn btn-danger" >Cancelar</a>
 				</div>
 			</form>
 

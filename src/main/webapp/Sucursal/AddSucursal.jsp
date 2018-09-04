@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,8 +15,9 @@
     <jsp:include page="../pages/head_folder.html" />
     
 
-<jsp:include page="../pages/nav_folder.html" />
 <body>
+    
+<jsp:include page="../pages/nav_folder.html" />
 <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -28,8 +30,9 @@
                                         <div class="wrap-contact100">
 
 	
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
+			<form action="${pageContext.request.contextPath}/sucursal.do" method="POST" class="contact100-form validate-form">
+			<input type="hidden"  name="op" value="insertar">	
+                            <span class="contact100-form-title">
 					Ingrese una Nueva Sucursal
 				</span>
                                 

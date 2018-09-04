@@ -1,17 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sv.edu.udb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sv.edu.udb.model.SucursalModel;
+import sv.edu.udb.pojo.Sucursal;
 
 /**
  *
@@ -29,6 +30,10 @@ public class SucursalController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    SucursalModel modelo = new SucursalModel();
+    Sucursal sucursal = null;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,7 +50,7 @@ public class SucursalController extends HttpServlet {
                     listar(request, response);
                     break;
                 case "nuevo":
-                    request.getRequestDispatcher("/Rol/AddRol.jsp").forward(request, response);
+                    request.getRequestDispatcher("/Sucursal/AddSucursal.jsp").forward(request, response);
                     break;
                 case "insertar":
                     insertar(request, response);
@@ -103,23 +108,51 @@ public class SucursalController extends HttpServlet {
     }// </editor-fold>
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try {
+            request.setAttribute("listarSucursal", modelo.listar());
+            request.getRequestDispatcher("/Sucursal/GetSucursal.jsp").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(SucursalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            sucursal = modelo.findById(id);
+            if (sucursal != null) {
+                request.setAttribute("sucursal", sucursal);
+                request.getRequestDispatcher("Sucursal/UpdateSucursal.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(SucursalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            if (modelo.eliminar(id) > 0) {
+                request.setAttribute("exito", "empresa eliminado exitosamente");
+                
+            } else {
+                request.setAttribute("fracaso", "No se puede eliminar esta sucursal");
+            }
+            request.getRequestDispatcher("/sucursal.do?op=listar").forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(SucursalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

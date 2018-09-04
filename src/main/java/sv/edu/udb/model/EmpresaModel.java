@@ -55,22 +55,23 @@ public class EmpresaModel extends Conexion{
         String sql = "DELETE FROM `empresa` WHERE idEmpresa = ?";
         this.conectar();
         st = conexion.prepareStatement(sql);
+        st.setInt(1, id);
         filasAffec = st.executeUpdate();
         this.desconectar();
         return filasAffec;
         
     }
     
-    public int update(int id, Empresa emp) throws SQLException{
+    public int update(Empresa emp) throws SQLException{
         int filasAffec = 0;
         this.conectar();
         String sql = "UPDATE `empresa` SET `nombreEmp`=?,`Estado`=?,`Porcentaje`=? WHERE idEmpresa = ?";
         st = conexion.prepareStatement(sql);
-        filasAffec = st.executeUpdate();
+        
         st.setString(1, emp.getNombre());
         st.setString(2, emp.getEstado());
         st.setInt(3, emp.getPorcentaje());
-        st.setInt(4, id);
+        st.setInt(4, emp.getId());
         filasAffec = st.executeUpdate();        
         this.desconectar();
         return filasAffec;

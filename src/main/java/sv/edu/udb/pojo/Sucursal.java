@@ -11,7 +11,7 @@ public class Sucursal {
     private String correo;
     private String telefono;
     private String direccion;
-    private  int idEncargado;
+    private int idEncargado;
     private Empresa empresa;
     private Usuario usuario;
 
