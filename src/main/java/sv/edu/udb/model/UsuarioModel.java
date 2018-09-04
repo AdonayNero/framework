@@ -82,21 +82,17 @@ public class UsuarioModel extends Conexion{
     
     }
     
-    public int update(int id , Usuario user) throws SQLException{
+    public int update(Usuario user) throws SQLException{
         int filasAffec=0;
         this.conectar();
-        String sql = "UPDATE `usuario` SET `nombre`=?,`telefono`=?,`email`=?,`pass`=?,`estado`=?,`tipoAcceso`=?,`fotoPerfil`=?,`token`=?,`dui`=?,`direccion`=? WHERE id=?";
+        String sql = "UPDATE `usuario` SET `nombre`=?,`telefono`=?,`email`=?,`dui`=?,`direccion`=? WHERE idUsuario=?";
         st = conexion.prepareStatement(sql);
         st.setString(1, user.getNombre());
         st.setString(2, user.getTelefono());
         st.setString(3, user.getEmail());
-        st.setString(4, user.getPass());
-        st.setString(5, user.getEstado());
-        st.setInt(6, user.getTipoAcceso());
-        st.setString(7, user.getFoto());
-        st.setString(8, user.getToken());
-        st.setString(9, user.getDui());
-        st.setString(10, user.getDireccion());
+        st.setString(4, user.getDui());
+        st.setString(5, user.getDireccion());
+        st.setInt(6, user.getId());
         
         filasAffec = st.executeUpdate();
         this.desconectar();
@@ -104,7 +100,7 @@ public class UsuarioModel extends Conexion{
     }
     
     public Usuario findById(int id) throws SQLException{
-        String sql = "SELECT `id`, `nombre`, `descripcion` FROM `roles` WHERE id = ?";
+        String sql = "SELECT `idUsuario`, `nombre`, `telefono`, `email`, `pass`, `estado`, `tipoAcceso`, `fotoPerfil`, `token`, `dui`, `direccion` FROM `usuario` WHERE idUsuario = ?";
         this.conectar();
         st= conexion.prepareStatement(sql);
         st.setInt(1, id);

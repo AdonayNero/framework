@@ -27,71 +27,44 @@
                                         <div class="wrap-contact100">
                                             
                                             
-                                      		<form class="contact100-form validate-form">
+                                      		<form action="${pageContext.request.contextPath}/usuario.do" method="POST" class="contact100-form validate-form">
+                                                    <input type="hidden"  name="op" value="modificar">
 				<span class="contact100-form-title">
 					Modificar Usuario
 				</span>
+                                <input type="hidden"  name="id" value="${user.id}">
 
 				<label class="label-input100" for="nombre">Ingrese su Nombre Completo *</label>
 				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Escriba su nombre">
-                                    <input id="nombre" class="input100" type="text" name="nombre" value="">
+                                    <input id="nombre" class="input100" type="text" name="nombre" value="${user.nombre}">
 					<span class="focus-input100"></span>
 				</div>
-				<div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Escriba su apellido">
-                                    <input class="input100" type="text" name="apellido" value="">
-					<span class="focus-input100"></span>
-				</div>
+				
 
 				<label class="label-input100" for="email">Ingrese su correo *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido un correo valido: ex@abc.xyz">
-                                    <input id="email" class="input100" type="email" name="email" value="">
+                                    <input id="email" class="input100" type="email" name="email" value="${user.email}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="telefono">Ingrese su Número de Teléfono *</label>
 				<div class="wrap-input100" data-validate = "Es requerido un número valido: 2295-4758">
-                                    <input id="telefono" class="input100" type="text" name="telefono" value="">
+                                    <input id="telefono" class="input100" type="text" name="telefono" value="${user.telefono}">
 					<span class="focus-input100"></span>
 				</div>
                                 <label class="label-input100" for="dui">Ingrese su DUI *</label>
 				<div class="wrap-input100" data-validate = "Es requerido un dui valido: 012345678-9">
-                                    <input id="dui" class="input100" type="text" name="dui" value="">
+                                    <input id="dui" class="input100" type="text" name="dui" value="${user.dui}">
 					<span class="focus-input100"></span>
 				</div>
                                 
-                                <label class="label-input100" for="pass">Ingrese su Contraseña *</label>
-				<div class="wrap-input100" data-validate = "Es requerido un número valido: ex@abc.xyz">
-                                    <input id="pass" class="input100" type="password" name="pass" value="">
-					<span class="focus-input100"></span>
-				</div>
+                                
                                                 
-                                <label class="label-input100" for="estado">Selecciona un Estado *</label>
-				<div class="wrap-input100 validate-input" data-validate = "Es requerido el estado">
-                                    <Select id="estado" class="form-control" name="estado">
-                                        <option value="activo">Activo</option>
-                                        <option value="no activo">No Activo</option>
-                                    </select>
-                                        <span class="focus-input100"></span>
-				</div>
                                 
-                                <label class="label-input100" for="tipoAcceso">Selecciona el Tipo de Acceso *</label>
-				<div class="wrap-input100 validate-input" data-validate="Selecciona un tipo de acceso">
-					<select id="tipoAcceso" class="form-control" name="tipoAcceso">
-                                            <option value="admin">Administrador</option>
-                                            <option value="cliente">Cliente</option>
-                                        </select>
-                                        <span class="focus-input100"></span>
-				</div>
 
-                                <label class="label-input100" for="foto">Ingrese una Foto de Perfil *</label>
-				<div class="wrap-input100" validate-input data-validate="Seleccione una foto: jpg/png">
-                                    <input id="foto" class="form-control-file" type="file" name="foto" value="">
-					<span class="focus-input100"></span>
-				</div>
-                                                                                              
 				<label class="label-input100" for="direccion">Ingrese su Dirección *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Dirección es requerida">
-                                    <input id="direccion" class="input100" name="direccion" value=""/>
+                                    <input id="direccion" class="input100" name="direccion" value="${user.direccion}"/>
 					<span class="focus-input100"></span>
 				</div>
 
@@ -99,6 +72,7 @@
 					<button class="contact100-form-btn">
 						Enviar Usuario
 					</button>
+                                        <a href="${pageContext.request.contextPath}/usuario.do" class="btn btn-danger" >Cancelar</a>
 				</div>
 			</form>
 

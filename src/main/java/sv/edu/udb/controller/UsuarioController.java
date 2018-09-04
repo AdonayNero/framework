@@ -148,15 +148,57 @@ public class UsuarioController extends HttpServlet {
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            System.out.println("mi id" +id);
+            user = modelo.findById(id);
+            if (user != null) {
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("Usuario/UpdateUsuario.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try {
+        listaErrores.clear();
+        user = new Usuario();
+        user.setId(Integer.parseInt(request.getParameter("id")));
+        user.setNombre(request.getParameter("nombre"));
+        user.setTelefono(request.getParameter("telefono"));
+        user.setEmail(request.getParameter("email"));
+        user.setDui(request.getParameter("dui"));
+        user.setDireccion(request.getParameter("direccion"));
+       
+         if (modelo.update(user)>0) {
+                response.sendRedirect(request.getContextPath() +"/usuario.do?op=listar");
+            }else{
+             response.sendRedirect(request.getContextPath() +"/usuario.do?op=listar");
+         }} catch (SQLException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       try {
+            int id = Integer.parseInt( request.getParameter("id"));
+            if (modelo.eliminar(id) > 0) {
+                request.setAttribute("exito", "usuario eliminado exitosamente");
+                
+            } else {
+                request.setAttribute("fracaso", "No se puede eliminar este usuario");
+            }
+            request.getRequestDispatcher("/usuario.do?op=listar").forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) {

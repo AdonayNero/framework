@@ -33,7 +33,7 @@
                                           <th>email</th>
                                           <th>estado</th>
                                           <th>rol</th>
-                                          <th>token</th>
+                                          
                                           <th>dui</th>
                                           <th>direccion</th>
                                           <th>Operaciones</th>
@@ -50,7 +50,7 @@
                                                    <td>${cat.email}</td>
                                                    <td>${cat.estado}</td>
                                                    <td>${cat.rol.nombre}</td>
-                                                   <td>${cat.token}</td>
+                                                   
                                                    <td>${cat.dui}</td>
                                                    <td>${cat.direccion}</td>                                                   
                                                    <td>
@@ -72,7 +72,27 @@
                              </div>
                         </div>
                    </div>
-              </div>
+             <script>
+            $(document).ready(function(){
+               $('#tabla').DataTable(); 
+            });
+                       <c:if test="${not empty exito}">
+                           alertify.success('${exito}');
+                          <c:set var="exito" value="" scope="session" />
+                       </c:if>
+                           <c:if test="${not empty fracaso}">
+                           alertify.error('${fracaso}');
+                           <c:set var="fracaso" value="" scope="session" />
+                       </c:if>
+         function eliminar(id){
+           alertify.confirm("¿Realmente decea eliminar este Usuario?", function(e){
+              if(e){
+                  location.href="usuario.do?op=eliminar&id="+ id;
+              } 
+           });
+  }
+        </script>
+        
+     <jsp:include page="../pages/footer_folder.html" />     
     </body>
-     <jsp:include page="../pages/footer_folder.html" />
 </html>
