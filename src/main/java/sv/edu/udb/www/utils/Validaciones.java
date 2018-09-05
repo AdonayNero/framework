@@ -32,6 +32,10 @@ public class Validaciones {
     public static boolean isEmpty(String mensaje) {
         return mensaje.trim().equals("");
     }
+    
+    public static boolean isLogin(String mensaje) {
+        return mensaje.trim().equals("");
+    }
 
     public static boolean esDecimal(String cadena) {
         try {

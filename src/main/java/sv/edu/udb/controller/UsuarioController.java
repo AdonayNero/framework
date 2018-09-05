@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sv.edu.udb.model.RolesModel;
 import sv.edu.udb.model.UsuarioModel;
 import sv.edu.udb.pojo.Usuario;
@@ -71,6 +72,9 @@ public class UsuarioController extends HttpServlet {
                     break;
                 case "eliminar":
                     eliminar(request, response);
+                    break;
+                case "login":
+                    check_login(request, response);
                     break;
             }
         }
@@ -155,9 +159,8 @@ public class UsuarioController extends HttpServlet {
             if (user != null) {
                 request.setAttribute("user", user);
                 request.getRequestDispatcher("Usuario/UpdateUsuario.jsp").forward(request, response);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/error404.jsp");
             }
+            
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,6 +211,37 @@ public class UsuarioController extends HttpServlet {
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void check_login(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            listaErrores.clear();
+            HttpSession sesion = request.getSession();
+            String usu, pass;
+            usu = request.getParameter("email");
+            pass = request.getParameter("pass");
+            
+            System.out.println(usu + pass);
+            user = modelo.login(usu, pass);
+            
+           
+            
+            if (user!=null) {
+                sesion.setAttribute("usuario", user.getNombre());
+                sesion.setAttribute("id", user.getId());
+                sesion.setAttribute("acceso", user.getRol().getNombre());
+                response.sendRedirect(request.getContextPath() +"/index.jsp");
+            }else
+             if (user==null) {
+                 
+                response.sendRedirect(request.getContextPath() +"/InicioSesion.jsp");
+             }
+            
+            
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }
