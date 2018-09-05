@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,38 +26,39 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
+			<form action="${pageContext.request.contextPath}/oferta.do" method="POST" class="contact100-form validate-form">
+                            <input type="hidden"  name="op" value="modificar">
 				<span class="contact100-form-title">
 					Modificar Oferta
 				</span>
-
+                                 <input type="hidden"  name="id" value="${ofer.id}">
 				<label class="label-input100" for="titulo">Ingrese Título *</label>
 				<div class="wrap-input100 validate-input" data-validate="Escriba un Título">
-                                    <input id="titulo" class="input100" type="text" name="titulo" value="">
+                                    <input id="titulo" class="input100" type="text" name="titulo" value="${ofer.titulo}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="subTitulo">Ingrese SubTítulo *</label>
 				<div class="wrap-input100 validate-input" data-validate="Escriba un SubTítulo">
-                                    <input id="subTitulo" class="input100" type="text" name="subTitulo" value="">
+                                    <input id="subTitulo" class="input100" type="text" name="subTitulo" value="${ofer.subTitulo}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="imagen">Ingrese una Imagen *</label>
 				<div class="wrap-input100" validate-input data-validate="Seleccione una Imagen: jpg/png">
-                                    <input id="imagen" class="form-control-file" type="file" name="imagen" value="">
+                                    <input id="imagen" class="form-control-file" type="file" name="imagen" value="${ofer.imagen}">
 					<span class="focus-input100"></span>
 				</div>
                                 
 				<label class="label-input100" for="valor">Ingrese Valor Normal ($) *</label>
 				<div class="wrap-input100" validate-input data-validate="Escriba un valor">
-                                    <input id="valor" class="input100" type="text" name="valor" value="">
+                                    <input id="valor" class="input100" type="text" name="valor" value="${ofer.valor}">
 					<span class="focus-input100"></span>
 				</div>
                                 
 				<label class="label-input100" for="valorOferta">Ingrese Valor Oferta ($) *</label>
 				<div class="wrap-input100" validate-input data-validate="Seleccione un valor">
-                                    <input id="valorOferta" class="input100" type="text" name="valorOferta" value="">
+                                    <input id="valorOferta" class="input100" type="text" name="valorOferta" value="${ofer.valorOferta}">
 					<span class="focus-input100"></span>
 				</div>
                                 
@@ -71,19 +73,19 @@
                                         
                                 <label class="label-input100" for="detalles">Detalles Generales *</label>
 				<div class="wrap-input100">
-                                    <input id="detalles" class="input100" type="text" name="detalles" value="">
+                                    <input id="detalles" class="input100" type="text" name="detalles" value="${ofer.detalles}">
 					<span class="focus-input100"></span>
 				</div>
                                 
                                 <label class="label-input100" for="descripcion">Descripción *</label>
 				<div class="wrap-input100">
-                                    <input id="descripcion" class="input100" type="text" name="descripcion" value="">
+                                    <input id="descripcion" class="input100" type="text" name="descripcion" value="${ofer.descripcion}">
 					<span class="focus-input100"></span>
 				</div>
                                 
                                 <label class="label-input100" for="Observaciones">Observaciones *</label>
 				<div class="wrap-input100">
-                                    <input id="Observaciones" type="text" class="input100" name="Observaciones" value="">
+                                    <input id="Observaciones" type="text" class="input100" name="Observaciones" value="${ofer.observaciones}">
 					<span class="focus-input100"></span>
 				</div>
                                 

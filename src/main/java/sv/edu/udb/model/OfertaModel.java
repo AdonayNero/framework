@@ -29,7 +29,7 @@ public class OfertaModel extends Conexion{
                 tmp.setSubTitulo(rs.getString("subTitulo"));
                 tmp.setImagen(rs.getString("img"));
                 tmp.setDetalles(rs.getString("detalleGenerales"));
-                tmp.setDescripcion(rs.getString("descripcion"));
+                tmp.setDescripcion(rs.getString("descripción"));
                 tmp.setValor(rs.getDouble("valorNormal"));
                 tmp.setValorOferta(rs.getDouble("valorOferta"));
                 tmp.setEstado(rs.getString("Estado"));
@@ -55,7 +55,7 @@ public class OfertaModel extends Conexion{
         Oferta oferta = null;
         try {
             conectar();
-            st = conexion.prepareStatement("select idOferta, Titulo, subTitulo, img, detalleGenerales, descripcion, valorNormal, valorOferta, Estado, Observaciones from oferta where idOferta = ?");
+            st = conexion.prepareStatement("select idOferta, Titulo, subTitulo, img, detalleGenerales, descripción, valorNormal, valorOferta, Estado, Observaciones from oferta where idOferta = ?");
             st.setInt(1, id);
 
             rs = st.executeQuery();
@@ -90,7 +90,7 @@ public class OfertaModel extends Conexion{
         int filasAffec = 0;
         try {
             conectar();
-            st = conexion.prepareStatement("insert into oferta (Titulo, subTitulo, img, detalleGenerales, descripcion, valorNormal, valorOferta, Estado, Observaciones) values(?,?,?,?,?,?,?,?,?)");
+            st = conexion.prepareStatement("insert into oferta (Titulo, subTitulo, img, detalleGenerales, descripción, valorNormal, valorOferta, Estado, Observaciones) values(?,?,?,?,?,?,?,?,?)");
             st.setString(1, oferta.getTitulo());
             st.setString(2, oferta.getSubTitulo());
             st.setString(3, oferta.getImagen());
@@ -113,10 +113,11 @@ public class OfertaModel extends Conexion{
     
     
     /* Metodo para actualizar oferta */
-    public void update(Oferta oferta) throws SQLException{
+    public int update(Oferta oferta) throws SQLException{
+        int filasAffec = 0;
         try {
             conectar();
-            st = conexion.prepareStatement("update oferta set Titulo = ?, subTitulo = ?, img = ?, detalleGenerales = ?, descripcion = ?, valorNormal = ?, valorOferta = ?, Estado = ?, Observaciones = ? where idOferta = ?");
+            st = conexion.prepareStatement("update oferta set Titulo = ?, subTitulo = ?, img = ?, detalleGenerales = ?, descripción = ?, valorNormal = ?, valorOferta = ?, Estado = ?, Observaciones = ? where idOferta = ?");
             st.setString(1, oferta.getTitulo());
             st.setString(2, oferta.getSubTitulo());
             st.setString(3, oferta.getImagen());
@@ -127,31 +128,38 @@ public class OfertaModel extends Conexion{
             st.setString(8, oferta.getEstado());
             st.setString(9, oferta.getObservaciones());
             st.setInt(10, oferta.getId());
-            st.executeUpdate();
-        
-        desconectar();   
+            filasAffec = st.executeUpdate();
+            desconectar();   
+            
+            return filasAffec;
         
         } catch (SQLException ex) {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
+            return filasAffec;
         }
+        
     }
     
     
     /* Metodo para eliminar oferta */
-    public void eliminar(int id) throws SQLException{
+    public int eliminar(int id) throws SQLException{
+        int filaAffec = 0;
         try {
             conectar();
             st = conexion.prepareStatement("delete from oferta where idOferta = ?");
             st.setInt(1, id);
-            st.execute();
-            
-        desconectar();
+            filaAffec= st.executeUpdate();
+            desconectar();
+            return filaAffec;
             
         } catch (SQLException ex) {
             Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
+            return filaAffec;
         }
+        
+        
     }
     
 }

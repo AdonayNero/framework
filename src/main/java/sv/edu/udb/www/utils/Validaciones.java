@@ -55,7 +55,7 @@ public class Validaciones {
     }
 
     public static boolean esTelefono(String cadena) {
-        Pattern pat = Pattern.compile("[267][0-9]{3}-[0-9]{4}");
+        Pattern pat = Pattern.compile("[503][0-9]{4}-[0-9]{4}");
         Matcher mat = pat.matcher(cadena);
         return mat.matches();
     }
