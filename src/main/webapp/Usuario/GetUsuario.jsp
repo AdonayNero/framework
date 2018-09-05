@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <jsp:include page="../pages/head_folder.html" />
-    <jsp:include page="../pages/nav_folder.html" />
+    <jsp:include page="../pages/nav_folder.jsp" />
     </head>
     <body>
          <div id="content-wrapper">

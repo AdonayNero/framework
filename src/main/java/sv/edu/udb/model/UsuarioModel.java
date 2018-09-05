@@ -17,6 +17,7 @@ import sv.edu.udb.pojo.Usuario;
 
 public class UsuarioModel extends Conexion{
     RolesModel rol = new RolesModel();
+    
     public int insertar( Usuario user) throws SQLException{
         int filasAffec = 0;
         String sql = "INSERT INTO `usuario`(`nombre`, `telefono`, `email`, `pass`, `estado`, `tipoAcceso`, `fotoPerfil`, `token`, `dui`, `direccion`) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -127,5 +128,39 @@ public class UsuarioModel extends Conexion{
         this.desconectar();
         return null;
     }
+    
+     public Usuario login(String email, String pass) throws SQLException{
+        String sql = "SELECT `idUsuario`, `nombre`, `telefono`, `email`, `pass`, `estado`, `tipoAcceso`, `fotoPerfil`, `token`, `dui`, `direccion` FROM `usuario` WHERE email=? and pass=? and estado= 'activo'";
+         
+        this.conectar();
+        st= conexion.prepareStatement(sql);
+        st.setString(1, email);
+        st.setString(2, pass);
+        System.out.println(st);
+        rs = st.executeQuery();
+        if (rs.next()) {
+            Usuario user = new Usuario();
+            
+            user.setId(rs.getInt(1));
+            user.setNombre(rs.getString(2));
+            user.setTelefono(rs.getString(3));
+            user.setEmail(rs.getString(4));
+            user.setPass(rs.getString(5));
+            user.setEstado(rs.getString(6));
+            user.setTipoAcceso(rs.getInt(7));
+            user.setFoto(rs.getString(8));
+            user.setToken(rs.getString(9));
+            user.setDui(rs.getString(10));
+            user.setDireccion(rs.getString(11));
+            user.setRol(rol.findById(rs.getInt(7)));
+            
+            this.desconectar();
+            return user;
+            
+        }
+        this.desconectar();
+        return null;
+    }
+    
     
 }
