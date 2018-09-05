@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sv.edu.udb.pojo.Empresa;
 import sv.edu.udb.pojo.Sucursal;
+import static sv.edu.udb.model.Conexion.conexion;
+
 import sv.edu.udb.model.EmpresaModel;
 /**
  *
@@ -39,9 +41,6 @@ public class SucursalModel extends Conexion {
                 tmp.setUsuario(emp2.findById(rs.getInt("idEncargado")));
                 sucursales.add(tmp);
                 
-               
-                 
-                
             }
         
         this.desconectar();
@@ -61,7 +60,7 @@ public class SucursalModel extends Conexion {
         Sucursal sucursal = null;
         try {
             conectar();
-            st = conexion.prepareStatement("select idSucursal, idEmpresa, correo, telefono, direccion from sucursal where idSucursal = ?");
+            st = conexion.prepareStatement("select idSucursal, idEmpresa, Correo, Telefono, Direccion, idEncargado from sucursal where idSucursal = ?");
             st.setInt(1, id);
 
             rs = st.executeQuery();
@@ -73,6 +72,7 @@ public class SucursalModel extends Conexion {
                 sucursal.setCorreo(rs.getString(3));   
                 sucursal.setTelefono(rs.getString(4));
                 sucursal.setDireccion(rs.getString(5));   
+                sucursal.setIdEncargado(rs.getInt(6));
             }
         
         desconectar();
@@ -111,22 +111,15 @@ public class SucursalModel extends Conexion {
     /* Metodo para actualizar sucursal */
     public int update(Sucursal sucursal) throws SQLException{
         int filasAffect = 0;
-        try {
-            conectar();
-            st = conexion.prepareStatement("update sucursal set idEmpresa = ?, correo = ?, telefono = ?, direccion = ? where idSucursal = ?");
-            st.setInt(1, sucursal.getIdEmpresa());
-            st.setString(2, sucursal.getCorreo());
-            st.setString(3, sucursal.getTelefono());
-            st.setString(4, sucursal.getDireccion());
-            st.setInt(5, sucursal.getId());
+                   this.conectar();
+            st = conexion.prepareStatement("update sucursal set Correo = ?, Telefono = ?, Direccion = ? where idSucursal = ?");
+            st.setString(1, sucursal.getCorreo());
+            st.setString(2, sucursal.getTelefono());
+            st.setString(3, sucursal.getDireccion());
+            st.setInt(4, sucursal.getId());
             filasAffect=st.executeUpdate();
         
-        desconectar();   
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
-        }
+        this.desconectar();   
         return filasAffect;
     }
     

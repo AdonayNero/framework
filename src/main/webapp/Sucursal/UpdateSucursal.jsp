@@ -28,53 +28,42 @@
                                         <div class="wrap-contact100">
 
 	
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
+			<form action="${pageContext.request.contextPath}/sucursal.do" method="POST" class="contact100-form validate-form">
+			 <input type="hidden"  name="op" value="modificar">	
+                            <span class="contact100-form-title">
 					Modificar Sucursal
 				</span>
+                         
+                                    <input type="hidden"  name="id" value="${sucursal.id}">
                                 
-                                <label class="label-input100" for="idEncargado">Seleccione un Encargado *</label>
-				<div class="wrap-input100 validate-input" data-validate="Seleccione un encargado">
-					<select id="idEncargado" class="input100" name="idEncargado">
-                                            <option value="">Hola Jóven</option>
-                                        </select>
-                                            <span class="focus-input100"></span>
-				</div>
-                            
-                                <label class="label-input100" for="idEmpresa">Selecciona una Empresa *</label>
-				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
-					<select id="idEmpresa" class="form-control" name="idEmpresa">
-                                            <option value="">Hola Jóven</option>
-                                        </select>
-					<span class="focus-input100"></span>
-				</div>
-                            
 				<label class="label-input100" for="correo">Ingresa el correo *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido un email valido: ex@abc.xyz">
-                                    <input id="correo" class="input100" type="email" name="correo" value="">
+                                    <input id="correo" class="input100" type="email" name="correo" value="${sucursal.correo}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="telefono">Ingrese Número de Teléfono *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido un teléfono valido">
-                                    <input id="telefono" class="input100" type="text" name="telefono" value="">
+                                    <input id="telefono" class="input100" type="text" name="telefono" value="${sucursal.telefono}">
 					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="direccion">Dirección *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Dirección es requerida">
-                                    <input id="direccion" class="input100" name="direccion" value=""/>
+                                    <textarea id="direccion" class="input100" name="direccion" value="">${sucursal.direccion}</textarea>
 					<span class="focus-input100"></span>
 				</div>
 
 				<div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
-						Enviar Sucursal
+						Editar Sucursal
 					</button>
+                                    </br>
+                                    <a href="${pageContext.request.contextPath}/sucursal.do" class="btn btn-danger" >Cancelar</a>
 				</div>
 			</form>
 
-			<div class="contact100-more flex-col-c-m" style="background-image: url('../Form/images/bg-01.jpg');">
+			<div class="contact100-more flex-col-c-m" style="background-image: url('style/Form/images/bg-01.jpg');">
 				<div class="flex-w size1 p-b-47">
 					<div class="txt1 p-r-25">
 						<span class="lnr lnr-map-marker"></span>

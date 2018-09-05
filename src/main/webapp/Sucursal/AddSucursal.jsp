@@ -35,21 +35,15 @@
                             <span class="contact100-form-title">
 					Ingrese una Nueva Sucursal
 				</span>
-                                
-                                <label class="label-input100" for="idEncargado">Seleccione un Encargado *</label>
-				<div class="wrap-input100 validate-input" data-validate="Seleccione un encargado">
-					<select id="idEncargado" class="input100" name="idEncargado">
-					    <option selected>Seleccione un encargado</option>
-                                            <option value>Hola Jóven</option>
-                                        </select>
-                                            <span class="focus-input100"></span>
-				</div>
-                            
+                                                           
                                 <label class="label-input100" for="idEmpresa">Selecciona una Empresa *</label>
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idEmpresa" class="form-control" name="idEmpresa">
                                             <option selected>Seleccione una empresa</option>
-                                            <option value>Hola Jóven</option>
+                                            <c:forEach items="${requestScope.listaRoles}" var="emp">
+                                            <option value="${emp.id}">${emp.nombre}</option>
+                                            
+                                            </c:forEach>
                                         </select>
 					<span class="focus-input100"></span>
 				</div>
@@ -72,14 +66,26 @@
 					<span class="focus-input100"></span>
 				</div>
 
-				<div class="container-contact100-form-btn">
+				<label class="label-input100" for="idEncargado">Seleccione un Encargado *</label>
+				<div class="wrap-input100 validate-input" data-validate="Seleccione un encargado">
+					<select id="idEncargado" class="form-control" name="idEncargado">
+					    <option selected>Seleccione un encargado</option>
+                                            <c:forEach items="${requestScope.listaUsuario}" var="usuario" varStatus="i">
+                                            <option value="${usuario.id}">${usuario.nombre}</option>
+                                            
+                                            </c:forEach>
+                                        </select>
+                                            <span class="focus-input100"></span>
+				</div>
+                                
+                                <div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
 						Enviar Sucursal
 					</button>
 				</div>
 			</form>
 
-			<div class="contact100-more flex-col-c-m" style="background-image: url('../Form/images/bg-01.jpg');">
+			<div class="contact100-more flex-col-c-m" style="background-image: url('style/Form/images/bg-01.jpg');">
 				<div class="flex-w size1 p-b-47">
 					<div class="txt1 p-r-25">
 						<span class="lnr lnr-map-marker"></span>
