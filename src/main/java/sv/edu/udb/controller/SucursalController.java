@@ -38,7 +38,7 @@ public class SucursalController extends HttpServlet {
     Sucursal sucursal = null;
     
     EmpresaModel empModel = new EmpresaModel();
-    UsuarioModel usuarioModelo = new UsuarioModel();
+    UsuarioModel userModel = new UsuarioModel();
     
     ArrayList<String> listaErrores = new ArrayList<>();
     
@@ -191,11 +191,11 @@ public class SucursalController extends HttpServlet {
     }
 
     private void nuevo(HttpServletRequest request, HttpServletResponse response) {
-         try {
-            request.setAttribute("listaEmpresa", empModel.listar());
-            request.setAttribute("listaUsuario", usuarioModelo.listar());
+        try {
+            request.setAttribute("listarEmp", empModel.listar());
+            request.setAttribute("listarUser", userModel.listar());
             request.getRequestDispatcher("/Sucursal/AddSucursal.jsp").forward(request, response);
-        } catch (SQLException | ServletException | IOException ex) {
+        } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(SucursalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

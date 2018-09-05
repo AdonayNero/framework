@@ -40,7 +40,7 @@
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idEmpresa" class="form-control" name="idEmpresa">
                                             <option selected>Seleccione una empresa</option>
-                                            <c:forEach items="${requestScope.listaRoles}" var="emp">
+                                            <c:forEach items="${requestScope.listarEmp}" var="emp">
                                             <option value="${emp.id}">${emp.nombre}</option>
                                             
                                             </c:forEach>
@@ -70,8 +70,8 @@
 				<div class="wrap-input100 validate-input" data-validate="Seleccione un encargado">
 					<select id="idEncargado" class="form-control" name="idEncargado">
 					    <option selected>Seleccione un encargado</option>
-                                            <c:forEach items="${requestScope.listaUsuario}" var="usuario" varStatus="i">
-                                            <option value="${usuario.id}">${usuario.nombre}</option>
+                                            <c:forEach items="${requestScope.listarUser}" var="user" >
+                                            <option value="${user.id}">${user.nombre}</option>
                                             
                                             </c:forEach>
                                         </select>

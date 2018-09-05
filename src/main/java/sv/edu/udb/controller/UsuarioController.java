@@ -76,6 +76,9 @@ public class UsuarioController extends HttpServlet {
                 case "login":
                     check_login(request, response);
                     break;
+                case "outlogin":
+                    outLogin(request, response);
+                    break;
             }
         }
     }
@@ -239,6 +242,17 @@ public class UsuarioController extends HttpServlet {
             
             
         } catch (SQLException | IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    private void outLogin(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            HttpSession sesion = request.getSession();
+            sesion.invalidate();
+            response.sendRedirect(request.getContextPath() +"/index.jsp");
+        } catch (IOException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         

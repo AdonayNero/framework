@@ -66,6 +66,9 @@ public class OfertaController extends HttpServlet {
                 case "eliminar":
                     eliminar(request, response);
                     break;
+                case "inicio":
+                    inicio(request, response);
+                    break;
             }
         }
     }
@@ -188,6 +191,15 @@ public class OfertaController extends HttpServlet {
                 request.setAttribute("fracaso", "No se puede eliminar esta Oferta");
             }
             request.getRequestDispatcher("/oferta.do?op=listar").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(OfertaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void inicio(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setAttribute("listaOferta", modelo.listar());
+            request.getRequestDispatcher("/Oferta/GetOferta.jsp").forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(OfertaController.class.getName()).log(Level.SEVERE, null, ex);
         }
