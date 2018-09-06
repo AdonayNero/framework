@@ -11,11 +11,14 @@ import sv.edu.udb.pojo.DetalleCupon;
  * @author Edwin Bonilla
  */
 public class DetalleModel extends Conexion{
+    OfertaModel emp = new OfertaModel();
+    SucursalModel emp2 = new SucursalModel();
+    CategoriaModel emp3 = new CategoriaModel();
     
     public int insertar(DetalleCupon dC) throws SQLException{
         int filasAffec = 0;
         this.conectar();
-        String sql = "INSERT INTO `detallecupon`(, `idOferta`, `idSucursal`, `idCategoria`, `estado`, `cantidad`, `FechHorInicio`, `FechHorFin`) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `detallecupon`(`idOferta`, `idSucursal`, `idCategoria`, `estado`, `cantidad`, `FechHorInicio`, `FechHorFin`) VALUES (?,?,?,?,?,?,?)";
         st = conexion.prepareStatement(sql);
         st.setInt(1, dC.getIdOferta());
         st.setInt(2, dC.getIdSucursal());
@@ -42,11 +45,15 @@ public class DetalleModel extends Conexion{
             dC = new DetalleCupon();
             dC.setId(rs.getInt(1));
             dC.setIdOferta(rs.getInt(2));
-            dC.setIdCategoria(rs.getInt(3));
-            dC.setEstado(rs.getString(4));
-            dC.setCantidad(rs.getInt(5));
-            dC.setFechaInicio(rs.getDate(6));
-            dC.setFechaFin(rs.getDate(7));
+            dC.setIdSucursal(rs.getInt(3));
+            dC.setIdCategoria(rs.getInt(4));
+            dC.setEstado(rs.getString(5));
+            dC.setCantidad(rs.getInt(6));
+            dC.setFechaInicio(rs.getDate(7));
+            dC.setFechaFin(rs.getDate(8));
+            dC.setOferta(emp.findById(rs.getInt("idOferta")));
+            dC.setSucursal(emp2.findById(rs.getInt("idSucursal")));
+            dC.setCategoria(emp3.findById(rs.getInt("idCategoria")));
             detalles.add(dC);
         }
         
@@ -65,19 +72,16 @@ public class DetalleModel extends Conexion{
         return filasAffec;
     }
     
-    public int update(int id, DetalleCupon dC) throws SQLException{
+    public int update(DetalleCupon dC) throws SQLException{
         int filasAffec = 0;
         this.conectar();
-        String sql ="UPDATE `detallecupon` SET `idOferta`=?,`idSucursal`=?,`idCategoria`=?,`estado`=?,`cantidad`=?,`FechHorInicio`=?,`FechHorFin`=? WHERE idDetalle = ?";
+        String sql ="UPDATE `detallecupon` SET `estado`=?,`cantidad`=?,`FechHorInicio`=?,`FechHorFin`=? WHERE idDetalle = ?";
         st = conexion.prepareStatement(sql);
-        st.setInt(1, dC.getIdOferta());
-        st.setInt(2, dC.getIdSucursal());
-        st.setInt(3, dC.getIdCategoria());
-        st.setString(4, dC.getEstado());
-        st.setInt(5, dC.getCantidad());
-        st.setDate(6, dC.getFechaInicio());
-        st.setDate(7, dC.getFechaFin());
-        st.setInt(8, id);
+        st.setString(1, dC.getEstado());
+        st.setInt(2, dC.getCantidad());
+        st.setDate(3, dC.getFechaInicio());
+        st.setDate(4, dC.getFechaFin());
+        st.setInt(5, dC.getId());
         
         filasAffec =  st.executeUpdate();
         this.desconectar();
@@ -96,11 +100,12 @@ public class DetalleModel extends Conexion{
             DetalleCupon dC = new DetalleCupon();
             dC.setId(rs.getInt(1));
             dC.setIdOferta(rs.getInt(2));
-            dC.setIdCategoria(rs.getInt(3));
-            dC.setEstado(rs.getString(4));
-            dC.setCantidad(rs.getInt(5));
-            dC.setFechaInicio(rs.getDate(6));
-            dC.setFechaFin(rs.getDate(7));
+            dC.setIdSucursal(rs.getInt(3));
+            dC.setIdCategoria(rs.getInt(4));
+            dC.setEstado(rs.getString(5));
+            dC.setCantidad(rs.getInt(6));
+            dC.setFechaInicio(rs.getDate(7));
+            dC.setFechaFin(rs.getDate(8));
             
             this.desconectar();
             return dC;

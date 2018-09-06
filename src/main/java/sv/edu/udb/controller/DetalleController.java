@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sv.edu.udb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -15,7 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sv.edu.udb.model.CategoriaModel;
 import sv.edu.udb.model.DetalleModel;
+import sv.edu.udb.model.OfertaModel;
+import sv.edu.udb.model.SucursalModel;
 import sv.edu.udb.pojo.DetalleCupon;
 
 /**
@@ -37,6 +38,12 @@ public class DetalleController extends HttpServlet {
     
     DetalleModel modelo = new DetalleModel();
     DetalleCupon detalle = null;
+    
+    OfertaModel ofertaModel = new OfertaModel();
+    SucursalModel sucursalModel = new SucursalModel();
+    CategoriaModel categoriaModel = new CategoriaModel();
+    
+    ArrayList<String> listaErrores = new ArrayList<>();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -53,7 +60,7 @@ public class DetalleController extends HttpServlet {
                     listar(request, response);
                     break;
                 case "nuevo":
-                    request.getRequestDispatcher("/Rol/AddRol.jsp").forward(request, response);
+                    nuevo(request, response);
                     break;
                 case "insertar":
                     insertar(request, response);
@@ -120,19 +127,72 @@ public class DetalleController extends HttpServlet {
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+      try {
+            listaErrores.clear();
+            detalle = new DetalleCupon();
+            detalle.setIdOferta(Integer.parseInt(request.getParameter("idOferta")));
+            detalle.setIdSucursal(Integer.parseInt(request.getParameter("idSucursal")));
+            detalle.setIdCategoria(Integer.parseInt(request.getParameter("idCategoria")));
+            detalle.setEstado(request.getParameter("estado"));
+            detalle.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
+            detalle.setFechaInicio(Date.valueOf(request.getParameter("fechaInicio")));
+            detalle.setFechaFin(Date.valueOf(request.getParameter("fechaFin")));
+         
+            if (modelo.insertar(detalle)>0) {
+                response.sendRedirect(request.getContextPath() +"/detalle.do?op=listar");
+            }
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+      int id = Integer.parseInt( request.getParameter("id"));
+            detalle = modelo.findById(id);
+            if (detalle != null) {
+                request.setAttribute("detalle", detalle);
+                request.getRequestDispatcher("DetalleCupon/UpdateDetalleCupon.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try{
+            listaErrores.clear();
+            detalle = new DetalleCupon();
+            detalle.setId(Integer.parseInt(request.getParameter("id")));
+            detalle.setEstado(request.getParameter("estado"));
+            detalle.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
+            detalle.setFechaInicio(Date.valueOf(request.getParameter("fechaInicio"))); 
+            detalle.setFechaFin(Date.valueOf(request.getParameter("fechaFin")));
+        if(modelo.update(detalle)>0) {
+                response.sendRedirect(request.getContextPath() +"/detalle.do?op=listar");
+            }
+    }   catch (IOException | SQLException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+    }
+
+    private void nuevo(HttpServletRequest request, HttpServletResponse response) {
+       try{
+            request.setAttribute("listarOferta", ofertaModel.listar());
+            request.setAttribute("listarSucursal", sucursalModel.listar());
+            request.setAttribute("listarCategoria", categoriaModel.listar());
+            request.getRequestDispatcher("/DetalleCupon/AddDetalleCupon.jsp").forward(request, response);
+       } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

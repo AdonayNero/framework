@@ -33,13 +33,14 @@
                                       <thead>
                                         <tr>
                                           <th>#</th>
-                                          <th>idOferta</th>
-                                          <th>idSucursal</th>
-                                          <th>idCategoria</th>
+                                          <th>Oferta</th>
+                                          <th>Sucursal</th>
+                                          <th>Categoria</th>
                                           <th>estado</th>
                                           <th>cantidad</th>
                                           <th>fechaInicio</th>
                                           <th>fechaFin</th>
+                                           <th>Operaciones</th>
                                         
                                           
                                           
@@ -53,9 +54,9 @@
                                               <c:forEach items="${requestScope.listaDetalles}" var="detalle" varStatus="i">
                                             <tr>
                                                     <td>${i.count}</td>
-                                                   <td>${detalle.idOferta}</td>
-                                                   <td>${detalle.idSucursal}</td>
-                                                    <td>${detalle.idCategoria}</td>
+                                                   <td>${detalle.oferta.titulo}</td>
+                                                   <td>${detalle.sucursal.direccion}</td>
+                                                    <td>${detalle.categoria.nombre}</td>
                                                     <td>${detalle.estado}</td>
                                                     <td>${detalle.cantidad}</td>
                                                     <td>${detalle.fechaInicio}</td>
@@ -63,8 +64,8 @@
                                                   
                                                    
                                                    <td>
-                                                       <a class="btn btn-warning" href="${pageContext.request.contextPath}/empresa.do?op=obtener&id=${empresa.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
-                                                       <a  class="btn btn-danger" href="javascript:eliminar('${empresa.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                                       <a class="btn btn-warning" href="${pageContext.request.contextPath}/detalle.do?op=obtener&id=${detalle.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                                       <a  class="btn btn-danger" href="javascript:eliminar('${detalle.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                                    </td>
                                                </tr>
                                        </c:forEach>
@@ -88,9 +89,9 @@
                            <c:set var="fracaso" value="" scope="session" />
                        </c:if>
          function eliminar(id){
-           alertify.confirm("¿Realmente decea eliminar este Empresa?", function(e){
+           alertify.confirm("¿Realmente decea eliminar este Detalle?", function(e){
               if(e){
-                  location.href="empresa.do?op=eliminar&id="+ id;
+                  location.href="detalle.do?op=eliminar&id="+ id;
               } 
            });
   }

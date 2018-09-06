@@ -91,11 +91,12 @@ public class SucursalModel extends Conexion {
         int filasAffec = 0;
         try {
             conectar();
-            st = conexion.prepareStatement("insert into sucursal (idEmpresa, correo, telefono, direccion) values(?,?,?,?)");
+            st = conexion.prepareStatement("insert into sucursal (idEmpresa, correo, telefono, direccion, idEncargado) values(?,?,?,?,?)");
             st.setInt(1, sucursal.getIdEmpresa());
             st.setString(2, sucursal.getCorreo());
             st.setString(3, sucursal.getTelefono());
             st.setString(4, sucursal.getDireccion());
+            st.setInt(5, sucursal.getIdEncargado());
             filasAffec = st.executeUpdate();    
 
         desconectar();

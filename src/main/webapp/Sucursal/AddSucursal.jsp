@@ -39,7 +39,7 @@
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idEmpresa" class="form-control" name="idEmpresa">
 					    <option selected>Seleccione un Empresa</option>
-                                            <c:forEach items="${requestScope.listarEmpresa}" var="empresa" varStatus="i">
+                                            <c:forEach items="${requestScope.listarEmp}" var="empresa" varStatus="i">
                                             <option value="${empresa.id}">${empresa.nombre}</option>
                                             </c:forEach>
                                         </select>

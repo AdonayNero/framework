@@ -3,8 +3,9 @@
     Created on : 30-ago-2018, 12:31:33
     Author     : Manuel Orellana
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +13,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
  <jsp:include page="../pages/head_folder.html" />
-    <jsp:include page="../pages/nav_folder.html" />
+    <jsp:include page="../pages/nav_folder.jsp" />
     </head>
     <body>
          <div id="content-wrapper">
@@ -25,25 +26,30 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form class="contact100-form validate-form">
-				<span class="contact100-form-title">
+                                            <form action="${pageContext.request.contextPath}/detalle.do" class="contact100-form validate-form">
+                                        <input type="hidden"  name="op" value="insertar">
+                                                <span class="contact100-form-title">
 					Ingresa un Nuevo Detalle de Cupón
 				</span>
 
 				<label class="label-input100" for="idOferta">Selecciona una Oferta *</label>
-				<div class="wrap-input100 validate-input" data-validate="Selecciona una oferta">
+				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idOferta" class="form-control" name="idOferta">
-                                            <option selected>Selecciona una Oferta</option>
-                                            <option value="">Hola Jóven</option>    
+					    <option selected>Seleccione un encargado</option>
+                                            <c:forEach items="${requestScope.listarOferta}" var="oferta" >
+                                            <option value="${oferta.id}">${oferta.titulo}</option>
+                                            </c:forEach>
                                         </select>
-                                            <span class="focus-input100"></span>
+					<span class="focus-input100"></span>
 				</div>
 
 				<label class="label-input100" for="idSucursal">Selecciona una Sucural *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Selecciona una sucursal">
 					<select id="idSucursal" class="form-control" name="idSucursal">
                                             <option selected>Selecciona una Sucursal</option>
-                                            <option value="">Hola Jóven</option> 
+                                           <c:forEach items="${requestScope.listarSucursal}" var="sucursal" >
+                                            <option value="${sucursal.id}">${sucursal.direccion}</option>
+                                            </c:forEach> 
                                         </select>
                                             <span class="focus-input100"></span>
 				</div>
@@ -52,7 +58,9 @@
 				<div class="wrap-input100 validate-input" data-validate = "Selecciona una categoría">
 					<select id="idCategoria" class="form-control" name="idCategoria">
                                             <option selected>Selecciona un Categoría</option>
-                                            <option value="">Hola Jóven</option> 
+                                           <c:forEach items="${requestScope.listarCategoria}" var="categoria" >
+                                            <option value="${categoria.id}">${categoria.nombre}</option>
+                                            </c:forEach> 
                                         </select>
                                             <span class="focus-input100"></span>
 				</div>
@@ -75,13 +83,13 @@
                                 
                                 <label class="label-input100" for="fechaInicio">Selecciona Fecha y Hora de Inicio *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerida la fecha">
-                                    <input id="fechaInicio" class="input100" type="datetime-local" name="fechaInicio" placeholder="Seleccione la fecha inicio">
+                                    <input id="fechaInicio" class="input100" type="date" name="fechaInicio" placeholder="Seleccione la fecha inicio">
 					<span class="focus-input100"></span>
 				</div>
 
                                 <label class="label-input100" for="fechaFin">Selecciona Fecha y Hora Fin *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerida la fecha">
-                                    <input id="fechaFin" class="input100" type="datetime-local" name="fechaFin" placeholder="Seleccione la fecha fin">
+                                    <input id="fechaFin" class="input100" type="date" name="fechaFin" placeholder="Seleccione la fecha fin">
 					<span class="focus-input100"></span>
 				</div>
                                 
@@ -92,7 +100,7 @@
 				</div>
 			</form>
 
-			<div class="contact100-more flex-col-c-m" style="background-image: url('../Form/images/bg-01.jpg');">
+			<div class="contact100-more flex-col-c-m" style="background-image: url('style/Form/images/bg-01.jpg');">
 				<div class="flex-w size1 p-b-47">
 					<div class="txt1 p-r-25">
 						<span class="lnr lnr-map-marker"></span>
