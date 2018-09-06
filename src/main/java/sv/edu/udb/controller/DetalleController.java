@@ -74,6 +74,12 @@ public class DetalleController extends HttpServlet {
                 case "eliminar":
                     eliminar(request, response);
                     break;
+                case "inicio":
+                    inicio(request, response);
+                    break;
+                case "verOferta":
+                    verOferta(request, response);
+                    break;
             }
         }
     }
@@ -150,7 +156,7 @@ public class DetalleController extends HttpServlet {
 
     private void obtener(HttpServletRequest request, HttpServletResponse response) {
         try{
-      int id = Integer.parseInt( request.getParameter("id"));
+            int id = Integer.parseInt( request.getParameter("id"));
             detalle = modelo.findById(id);
             if (detalle != null) {
                 request.setAttribute("detalle", detalle);
@@ -191,6 +197,35 @@ public class DetalleController extends HttpServlet {
             request.setAttribute("listarCategoria", categoriaModel.listar());
             request.getRequestDispatcher("/DetalleCupon/AddDetalleCupon.jsp").forward(request, response);
        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void inicio(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setAttribute("listaOferta", modelo.listar());
+            try {
+                request.getRequestDispatcher("/inicioPublic.jsp").forward(request, response);
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void verOferta(HttpServletRequest request, HttpServletResponse response) {
+        try{
+            int id = Integer.parseInt( request.getParameter("id"));
+            detalle = modelo.findById(id);
+            System.out.println("detalleid "+ detalle.getId());
+            if (detalle != null) {
+                request.setAttribute("detalle", detalle);
+                request.getRequestDispatcher("/oferta.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

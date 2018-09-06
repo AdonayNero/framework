@@ -48,7 +48,8 @@
 
                                           <tbody>
                                               
-                                              <c:forEach items="${requestScope.listaUsuario}" var="cat" varStatus="i">
+                                           <c:forEach items="${requestScope.listaUsuario}" var="cat" varStatus="i">
+                                            <c:if test="${cat.id eq sessionScope.id || cat.rol.nombre eq 'dependiente' }">
                                             <tr>
                                                     <td>${i.count}</td>
                                                    <td>${cat.nombre}</td>
@@ -63,6 +64,26 @@
                                                        <a  class="btn btn-danger" href="javascript:eliminar('${cat.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                                    </td>
                                                </tr>
+                                            </c:if>
+                                       </c:forEach>
+                                               
+                                         <c:forEach items="${requestScope.listaUsuario}" var="cat" varStatus="i">
+                                            <c:if test="${not sessionScope.acceso eq 'adminEmp' }">
+                                            <tr>
+                                                    <td>${i.count}</td>
+                                                   <td>${cat.nombre}</td>
+                                                   <td>${cat.email}</td>
+                                                   <td>${cat.estado}</td>
+                                                   <td>${cat.rol.nombre}</td>
+                                                   
+                                                   <td>${cat.dui}</td>
+                                                   <td>${cat.direccion}</td>                                                   
+                                                   <td>
+                                                       <a class="btn btn-warning" href="${pageContext.request.contextPath}/usuario.do?op=obtener&id=${cat.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                                       <a  class="btn btn-danger" href="javascript:eliminar('${cat.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                                   </td>
+                                               </tr>
+                                            </c:if>
                                        </c:forEach>
                                             </tbody>
                                         </table>

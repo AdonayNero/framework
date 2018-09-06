@@ -32,18 +32,18 @@
                             <div class="card-body">
                                 <div class="container-contact100">
                                         <div class="wrap-contact100">
-			<form action="${pageContext.request.contextPath}/empresa.do" class="contact100-form validate-form">
-                             <input type="hidden"  name="op" value="insertar">
+                                            <form action="${pageContext.request.contextPath}/empresa.do" method="POST" class="contact100-form validate-form">
+                                <input type="hidden"  name="op" value="insertar">
 				<span class="contact100-form-title">
 					Ingresa una Nueva Empresa
 				</span>
-
+                                <input type="hidden"  name="id" value="${sessionScope.id}">
 				<label class="label-input100" for="nombre">Ingrese Nombre de Empresa *</label>
 				<div class="wrap-input100 validate-input" data-validate="Escriba el nombre de la empresa">
 					<input id="nombre" class="input100" type="text" value="${empresa.nombre}" name="nombre" placeholder="Nombre de Empresa">
 					<span class="focus-input100"></span>
 				</div>
-
+                                <c:if test="${sessionScope.acceso eq 'admin'}">            
 				<label class="label-input100" for="estado">Selecciona un Estado *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el estado">
                                     <select id="estado" class="form-control" name="estado">
@@ -53,8 +53,9 @@
                                     </select>
                                         <span class="focus-input100"></span>
 				</div>
+                                </c:if>
 
-				<label class="label-input100" for="porcentaje">Ingrese Porcentaje (%) *</label>
+				<label class="label-input100" for="porcentaje">Ingrese Porcentaje Comision (%) *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el porcemtaje">
 					<input id="porcentaje" class="input100" type="text" name="porcentaje" placeholder="25" value="${emoresa.porcentaje}">
 					<span class="focus-input100"></span>
@@ -62,7 +63,7 @@
 
 				<div class="container-contact100-form-btn">
 					<button class="contact100-form-btn">
-						Enviar Empresa
+						Continuar
 					</button>
 				</div>
 			</form>

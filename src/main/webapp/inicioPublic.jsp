@@ -25,9 +25,9 @@
                     <div class="card">
                         <img class="card-img-top" src="img/1.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">${ofer.titulo}</h5>
-                            <p class="card-text">${ofer.descripcion}</p>
-                            <a href="#" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Ver Oferta</a>
+                            <h5 class="card-title">${ofer.oferta.titulo}-$${ofer.oferta.valorOferta}</h5>
+                            <p class="card-text">${ofer.oferta.descripcion}- </p>
+                            <a href="${pageContext.request.contextPath}/oferta.do?op=verOferta&id=${ofer.id}" class="btn btn-primary mt-3" >Ver Oferta</a>
                         </div>
                     </div>
                 </div>

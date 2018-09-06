@@ -45,7 +45,7 @@
                                     <input id="nombre" class="input100" type="text" name="nombre" value="${empresa.nombre}">
 					<span class="focus-input100"></span>
 				</div>
-
+                            <c:if test="${sessionScope.acceso eq 'admin'}">
 				<label class="label-input100" for="estado">Selecciona un Estado *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el estado">
                                     <select id="estado" class="form-control" name="estado">
@@ -54,7 +54,7 @@
                                     </select>
                                         <span class="focus-input100"></span>
 				</div>
-
+                            </c:if>
 				<label class="label-input100" for="porcentaje">Ingrese Porcentaje (%) *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Es requerido el porcemtaje">
                                     <input id="porcentaje" class="input100" type="text" name="porcentaje" value="${empresa.porcentaje}">

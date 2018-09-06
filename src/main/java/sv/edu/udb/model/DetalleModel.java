@@ -91,7 +91,7 @@ public class DetalleModel extends Conexion{
     
     public DetalleCupon findById(int id) throws SQLException{
         this.conectar();
-        String sql ="SELECT `idDetalle`, `idOferta`, `idSucursal`, `idCategoria`, `estado`, `cantidad`, `FechHorInicio`, `FechHorFin` FROM `detallecupon` WHERE idDetalle = ?";
+        String sql ="SELECT * FROM `detallecupon` WHERE idDetalle = ?";
         st = conexion.prepareStatement(sql);
         st.setInt(1, id);
         rs = st.executeQuery();
@@ -106,6 +106,9 @@ public class DetalleModel extends Conexion{
             dC.setCantidad(rs.getInt(6));
             dC.setFechaInicio(rs.getDate(7));
             dC.setFechaFin(rs.getDate(8));
+            dC.setOferta(emp.findById(rs.getInt("idOferta")));
+            dC.setSucursal(emp2.findById(rs.getInt("idSucursal")));
+            dC.setCategoria(emp3.findById(rs.getInt("idCategoria")));
             
             this.desconectar();
             return dC;

@@ -19,7 +19,7 @@ import sv.edu.udb.model.EmpresaModel;
 public class SucursalModel extends Conexion {
         
     /* Metodo para mostrar las sucursals existentes */
-    EmpresaModel emp = new EmpresaModel();
+    EmpresaModel empresa = new EmpresaModel();
     UsuarioModel emp2 = new UsuarioModel();
     public ArrayList<Sucursal> listar() throws  SQLException{
         Sucursal tmp = null;
@@ -37,7 +37,7 @@ public class SucursalModel extends Conexion {
                 tmp.setTelefono(rs.getString("Telefono"));
                 tmp.setDireccion(rs.getString("Direccion"));
                 tmp.setIdEncargado(rs.getInt("idEncargado"));
-                tmp.setEmpresa(emp.findById(rs.getInt("idEmpresa")));
+                tmp.setEmpresa(empresa.findById(rs.getInt("idEmpresa")));
                 tmp.setUsuario(emp2.findById(rs.getInt("idEncargado")));
                 sucursales.add(tmp);
                 
@@ -73,6 +73,7 @@ public class SucursalModel extends Conexion {
                 sucursal.setTelefono(rs.getString(4));
                 sucursal.setDireccion(rs.getString(5));   
                 sucursal.setIdEncargado(rs.getInt(6));
+                sucursal.setEmpresa(empresa.findById(rs.getInt(2)));
             }
         
         desconectar();

@@ -51,7 +51,8 @@
 
                                           <tbody>
                                               
-                                              <c:forEach items="${requestScope.listarEmpresa}" var="empresa" varStatus="i">
+                                            <c:forEach items="${requestScope.listarEmpresa}" var="empresa" varStatus="i">
+                                            <c:if test="${empresa.idEncargado eq sessionScope.id }">
                                             <tr>
                                                     <td>${i.count}</td>
                                                    <td>${empresa.nombre}</td>
@@ -62,6 +63,22 @@
                                                        <a  class="btn btn-danger" href="javascript:eliminar('${empresa.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                                    </td>
                                                </tr>
+                                            </c:if>
+                                       </c:forEach>
+                                               
+                                       <c:forEach items="${requestScope.listarEmpresa}" var="empresa" varStatus="i">
+                                            <c:if test="${not sessionScope.acceso eq 'adminEmp' }">
+                                            <tr>
+                                                    <td>${i.count}</td>
+                                                   <td>${empresa.nombre}</td>
+                                                   <td>${empresa.estado}</td>
+                                                    <td>${empresa.porcentaje}</td>
+                                                   <td>
+                                                       <a class="btn btn-warning" href="${pageContext.request.contextPath}/empresa.do?op=obtener&id=${empresa.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                                       <a  class="btn btn-danger" href="javascript:eliminar('${empresa.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                                   </td>
+                                               </tr>
+                                            </c:if>
                                        </c:forEach>
                                             </tbody>
                                         </table>
@@ -70,7 +87,8 @@
                                 </div>
                         </div>
                      </div>
-            </div><script>
+            </div>
+        <script>
             $(document).ready(function(){
                $('#tabla').DataTable(); 
             });
@@ -83,7 +101,7 @@
                            <c:set var="fracaso" value="" scope="session" />
                        </c:if>
          function eliminar(id){
-           alertify.confirm("¿Realmente decea eliminar este Empresa?", function(e){
+           alertify.confirm("¿Realmente decea eliminar esta Empresa?", function(e){
               if(e){
                   location.href="empresa.do?op=eliminar&id="+ id;
               } 

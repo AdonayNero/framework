@@ -66,9 +66,7 @@ public class OfertaController extends HttpServlet {
                 case "eliminar":
                     eliminar(request, response);
                     break;
-                case "inicio":
-                    inicio(request, response);
-                    break;
+                
             }
         }
     }

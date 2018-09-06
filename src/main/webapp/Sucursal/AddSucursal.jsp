@@ -39,8 +39,14 @@
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idEmpresa" class="form-control" name="idEmpresa">
 					    <option selected>Seleccione un Empresa</option>
+                                            
                                             <c:forEach items="${requestScope.listarEmp}" var="empresa" varStatus="i">
+                                                <c:if test="${empresa.idEncargado eq sessionScope.id }">
                                             <option value="${empresa.id}">${empresa.nombre}</option>
+                                                </c:if>
+                                            <c:if test="${sessionScope.acceso = 'admin' }">
+                                            <option value="${empresa.id}">${empresa.nombre}</option>
+                                                </c:if>
                                             </c:forEach>
                                         </select>
 					<span class="focus-input100"></span>

@@ -19,6 +19,7 @@ public class DetalleCupon {
     private Oferta oferta;
     private Sucursal sucursal;
     private Categoria categoria;
+    private Empresa empresa;
 
     public int getId() {
         return id;
@@ -109,6 +110,16 @@ public class DetalleCupon {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    
+    
     
     
     

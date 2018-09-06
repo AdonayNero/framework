@@ -161,6 +161,36 @@ public class UsuarioModel extends Conexion{
         this.desconectar();
         return null;
     }
+     
+     public List<Usuario> listDependientes() throws SQLException{
+        Usuario user = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        this.conectar();
+        String sql = "SELECT * FROM `usuario` WHERE tipoAcceso =2";
+        st = conexion.prepareStatement(sql);
+        rs = st.executeQuery();
+        while (rs.next()) {
+            user = new Usuario();
+            user.setId(rs.getInt(1));
+            user.setNombre(rs.getString(2));
+            user.setTelefono(rs.getString(3));
+            user.setEmail(rs.getString(4));
+            user.setPass(rs.getString(5));
+            user.setEstado(rs.getString(6));
+            user.setTipoAcceso(rs.getInt(7));
+            user.setFoto(rs.getString(8));
+            user.setToken(rs.getString(9));
+            user.setDui(rs.getString(10));
+            user.setDireccion(rs.getString(11));
+            user.setRol(rol.findById(rs.getInt(7)));
+            usuarios.add(user);
+        }
+        
+        this.desconectar();
+        return usuarios;
+        
+    }
     
     
 }

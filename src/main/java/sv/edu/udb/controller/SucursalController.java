@@ -135,6 +135,7 @@ public class SucursalController extends HttpServlet {
             sucursal.setTelefono(request.getParameter("telefono"));
             sucursal.setDireccion(request.getParameter("direccion"));
             sucursal.setIdEncargado(Integer.parseInt(request.getParameter("idEncargado")));
+            
             if (modelo.insertar(sucursal)>0) {
                 response.sendRedirect(request.getContextPath() +"/sucursal.do?op=listar");
             }
@@ -193,7 +194,7 @@ public class SucursalController extends HttpServlet {
     private void nuevo(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.setAttribute("listarEmp", empModel.listar());
-            request.setAttribute("listarUser", userModel.listar());
+            request.setAttribute("listarUser", userModel.listDependientes());
             request.getRequestDispatcher("/Sucursal/AddSucursal.jsp").forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(SucursalController.class.getName()).log(Level.SEVERE, null, ex);

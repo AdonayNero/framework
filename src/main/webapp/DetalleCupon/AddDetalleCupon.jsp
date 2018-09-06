@@ -37,8 +37,14 @@
 					<select id="idOferta" class="form-control" name="idOferta">
 					    <option selected>Seleccione un encargado</option>
                                             <c:forEach items="${requestScope.listarOferta}" var="oferta" >
+                                            
                                             <option value="${oferta.id}">${oferta.titulo}</option>
+                                            
                                             </c:forEach>
+                                            
+                                            
+                                            
+                                            
                                         </select>
 					<span class="focus-input100"></span>
 				</div>
@@ -47,8 +53,16 @@
 				<div class="wrap-input100 validate-input" data-validate = "Selecciona una sucursal">
 					<select id="idSucursal" class="form-control" name="idSucursal">
                                             <option selected>Selecciona una Sucursal</option>
+                                            
                                            <c:forEach items="${requestScope.listarSucursal}" var="sucursal" >
+                                               <c:if test="${sucursal.empresa.idEncargado eq sessionScope.id }">
                                             <option value="${sucursal.id}">${sucursal.direccion}</option>
+                                               </c:if>
+                                            </c:forEach> 
+                                            <c:forEach items="${requestScope.listarSucursal}" var="sucursal" >
+                                            <c:if test="${not sessionScope.acceso eq 'adminEmp' }">
+                                                <option value="${sucursal.id}">${sucursal.direccion}</option>
+                                               </c:if>
                                             </c:forEach> 
                                         </select>
                                             <span class="focus-input100"></span>

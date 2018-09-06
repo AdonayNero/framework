@@ -99,9 +99,10 @@
             <span>Empresas</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="Empresa/GetEmpresa.jsp">Lista de Empresas</a>
-            <a class="dropdown-item" href="Empresa/AddEmpresa.jsp">Agregar Empresa</a>
-            <a class="dropdown-item" href="Empresa/UpdateEmpresa.jsp">Modificar Empresa</a>
+              
+            <a class="dropdown-item" href="${pageContext.request.contextPath}/empresa.do">Lista de Empresas</a>
+            <a class="dropdown-item" href="${pageContext.request.contextPath}/empresa.do?op=nuevo">Agregar Empresa</a>
+            
           </div>
         </li>
        </c:if>

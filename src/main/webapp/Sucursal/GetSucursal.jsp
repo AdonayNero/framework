@@ -11,6 +11,7 @@
     </head>
     <body>
         <jsp:include page="../pages/nav_folder.jsp" />
+        
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -40,20 +41,38 @@
 
                                           <tbody>
                                               
-                                              <c:forEach items="${requestScope.listarSucursal}" var="sucursal" varStatus="i">
-                                            <tr>
-                                                    <td>${i.count}</td>
-                                                   <td>${sucursal.empresa.nombre}</td>
-                                                   <td>${sucursal.correo}</td>
-                                                   <td>${sucursal.telefono}</td>
-                                                   <td>${sucursal.direccion}</td>
-                                                   <td>${sucursal.usuario.nombre}</td>
-                                                   <td>
-                                                       <a class="btn btn-warning" href="${pageContext.request.contextPath}/sucursal.do?op=obtener&id=${sucursal.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
-                                                       <a  class="btn btn-danger" href="javascript:eliminar('${sucursal.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-                                                   </td>
-                                               </tr>
-                                       </c:forEach>
+                                            <c:forEach items="${requestScope.listarSucursal}" var="sucursal" varStatus="i">
+                                                  <c:if test="${sucursal.empresa.idEncargado eq sessionScope.id }">
+                                                        <tr>
+                                                                <td>${i.count}</td>
+                                                               <td>${sucursal.empresa.nombre}</td>
+                                                               <td>${sucursal.correo}</td>
+                                                               <td>${sucursal.telefono}</td>
+                                                               <td>${sucursal.direccion}</td>
+                                                               <td>${sucursal.usuario.nombre}</td>
+                                                               <td>
+                                                                   <a class="btn btn-warning" href="${pageContext.request.contextPath}/sucursal.do?op=obtener&id=${sucursal.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                                                   <a  class="btn btn-danger" href="javascript:eliminar('${sucursal.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                                               </td>
+                                                           </tr>
+                                              </c:if>          
+                                            </c:forEach>
+                                             <c:forEach items="${requestScope.listarSucursal}" var="sucursal" varStatus="i">
+                                                  <c:if test="${not sessionScope.acceso eq 'adminEmp' }">
+                                                        <tr>
+                                                                <td>${i.count}</td>
+                                                               <td>${sucursal.empresa.nombre}</td>
+                                                               <td>${sucursal.correo}</td>
+                                                               <td>${sucursal.telefono}</td>
+                                                               <td>${sucursal.direccion}</td>
+                                                               <td>${sucursal.usuario.nombre}</td>
+                                                               <td>
+                                                                   <a class="btn btn-warning" href="${pageContext.request.contextPath}/sucursal.do?op=obtener&id=${sucursal.id}"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                                                   <a  class="btn btn-danger" href="javascript:eliminar('${sucursal.id}')"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                                               </td>
+                                                           </tr>
+                                              </c:if>          
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                       </div>

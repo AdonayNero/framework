@@ -119,15 +119,21 @@ public class EmpresaController extends HttpServlet {
     
         try{
             empresa = new Empresa();
+            empresa.setIdEncargado(Integer.parseInt(request.getParameter("id")));
             empresa.setNombre(request.getParameter("nombre")); 
             empresa.setEstado(request.getParameter("estado"));
             empresa.setPorcentaje(Integer.parseInt(request.getParameter("porcentaje")));
     
         if (modelo.insertar(empresa)>0) {
-                response.sendRedirect(request.getContextPath() +"/empresa.do?op=listar");
+                response.sendRedirect(request.getContextPath() +"/sucursal.do?op=nuevo&id="+empresa.getIdEncargado());
             }
    }    catch (SQLException | IOException ex) {
-            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                
+                response.sendRedirect(request.getContextPath() +"/empresa.do?op=nuevo");
+            } catch (IOException ex1) {
+                Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }
 
@@ -168,6 +174,7 @@ public class EmpresaController extends HttpServlet {
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
         try {
             int id = Integer.parseInt( request.getParameter("id"));
+            
             if (modelo.eliminar(id) > 0) {
                 request.setAttribute("exito", "empresa eliminado exitosamente");
                 
@@ -176,14 +183,24 @@ public class EmpresaController extends HttpServlet {
             }
             request.getRequestDispatcher("/empresa.do?op=listar").forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
-            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                request.getRequestDispatcher("/empresa.do?op=listar").forward(request, response);
+            } catch (ServletException ex1) {
+                Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (IOException ex1) {
+                Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
         try {
+            
+            
+            
             request.setAttribute("listarEmpresa", modelo.listar());
             request.getRequestDispatcher("/Empresa/GetEmpresa.jsp").forward(request, response);
+            
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
             
