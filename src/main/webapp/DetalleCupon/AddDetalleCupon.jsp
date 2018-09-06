@@ -35,7 +35,7 @@
 				<label class="label-input100" for="idOferta">Selecciona una Oferta *</label>
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idOferta" class="form-control" name="idOferta">
-					    <option selected>Seleccione un encargado</option>
+					    <option selected>Seleccione una oferta</option>
                                             <c:forEach items="${requestScope.listarOferta}" var="oferta" >
                                             
                                             <option value="${oferta.id}">${oferta.titulo}</option>

@@ -19,6 +19,15 @@ public class Venta {
     private Date fechaVenta;
     private String formaPago;
     private String estado;
+    private Usuario cliente;
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
 
     public String getCodigo() {
         return codigo;

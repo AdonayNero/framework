@@ -1,11 +1,14 @@
 
 package sv.edu.udb.model;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sv.edu.udb.pojo.Venta;
+import static sv.edu.udb.model.Conexion.conexion;
 
 /**
  *
@@ -13,46 +16,45 @@ import sv.edu.udb.pojo.Venta;
  */
 public class VentaModel extends Conexion{
  
+    UsuarioModel emp = new UsuarioModel();
+
+    
     /* Metodo para mostrar las ventas existentes */
-    public ArrayList<Venta> listar() throws  SQLException{
-        
-        ArrayList<Venta> ventas = new ArrayList();
-        try {
-            conectar();
-            st = conexion.prepareStatement("select * from venta");
+    public List<Venta> listar() throws  SQLException{
+        Venta tmp = null;
+        List<Venta> ventas = new ArrayList();
+       
+            this.conectar();
+            st = conexion.prepareStatement("select `CodigoCupon`, `idCliente`, `idDetalleCupon`, `FechHrVenta`, `Formapago`, `Estado` from venta");
             rs = st.executeQuery();
 
             while(rs.next()){
-                Venta tmp = new Venta();
-                tmp.setCodigo(rs.getString("CodigoCupon"));
-                tmp.setIdCliente(rs.getInt("idCliente"));
-                tmp.setIdDetalleCupon(rs.getInt("idDetalleCupon"));
-                tmp.setFechaVenta(rs.getDate("FechaHrVenta"));
-                tmp.setFormaPago(rs.getString("Formapago"));
-                tmp.setEstado(rs.getString("Estado"));
-
+                tmp = new Venta();
+                tmp.setCodigo(rs.getString(1));
+                tmp.setIdCliente(rs.getInt(2));
+                tmp.setIdDetalleCupon(rs.getInt(3));
+                tmp.setFechaVenta(rs.getDate(4));
+                tmp.setFormaPago(rs.getString(5));
+                tmp.setEstado(rs.getString(6));
+                tmp.setCliente(emp.findById(rs.getInt(2)));
+                
                 ventas.add(tmp);
             }
         
-        desconectar();
+        this.desconectar();
         return ventas;
         
-        } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
-            return null;
-        }
     }
     
     
     /* Metodo para mostrar la venta por codigo */
-    public Venta findById(int codigo) throws SQLException{
+    public Venta findById(String codigo) throws SQLException{
         
         Venta venta = null;
         try {
             conectar();
             st = conexion.prepareStatement("select CodigoCupon, idCliente, idDetalleCupon, FechHrVenta, Formapago, Estado from venta where CodigoCupon = ?");
-            st.setInt(1, codigo);
+            st.setString(1, codigo);
 
             rs = st.executeQuery();
 
@@ -70,7 +72,7 @@ public class VentaModel extends Conexion{
         return venta;
      
         } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
             return null;
         }
@@ -80,22 +82,18 @@ public class VentaModel extends Conexion{
     /* Metodo para agregar venta */
     public int insertar(Venta venta) throws SQLException{
         int filasAffec=0;
-        try {
-            conectar();
-            st = conexion.prepareStatement("insert into venta (idCliente, idDetalleCupon, FechHrVenta, Formapago, Estado) values(?,?,?,?,?)");
-            st.setInt(1, venta.getIdCliente());
-            st.setInt(2, venta.getIdDetalleCupon());
-            st.setDate(3, venta.getFechaVenta());
-            st.setString(4, venta.getFormaPago());
-            st.setString(5, venta.getEstado());
+       
+            this.conectar();
+            st = conexion.prepareStatement("insert into venta (CodigoCupon, idCliente, idDetalleCupon, FechHrVenta, Formapago, Estado) values(?,?,?,?,?,?)");
+            st.setString(1, venta.getCodigo());
+            st.setInt(2, venta.getIdCliente());
+            st.setInt(3, venta.getIdDetalleCupon());
+            st.setDate(4, venta.getFechaVenta());
+            st.setString(5, venta.getFormaPago());
+            st.setString(6, venta.getEstado());
             filasAffec = st.executeUpdate();    
 
-        desconectar();
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
-        }
+        this.desconectar();
         return filasAffec;
     }
     
@@ -117,7 +115,7 @@ public class VentaModel extends Conexion{
         desconectar();   
         
         } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentaModel.class.getName()).log(Level.SEVERE, null, ex);
             desconectar();
         }
         return filasAffec;
@@ -125,21 +123,16 @@ public class VentaModel extends Conexion{
     
     
     /* Metodo para eliminar venta */
-    public int eliminar(int codigo) throws SQLException{
+    public int eliminar(String codigo) throws SQLException{
         int filasAffec =0;
-        try {
-            conectar();
-            st = conexion.prepareStatement("delete from venta where CodigoCupon = ?");
-            st.setInt(1, codigo);
+      
+            this.conectar();
+            st = conexion.prepareStatement("delete from `venta` where CodigoCupon = ?");
+            st.setString(1, codigo);
             filasAffec = st.executeUpdate();
             
-        desconectar();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(RolesModel.class.getName()).log(Level.SEVERE, null, ex);
-            desconectar();
-        }
-        return  filasAffec;
+        this.desconectar();
+        return filasAffec;
     }
     
 }
