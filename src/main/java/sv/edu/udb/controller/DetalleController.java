@@ -7,11 +7,16 @@ package sv.edu.udb.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sv.edu.udb.model.DetalleModel;
+import sv.edu.udb.pojo.DetalleCupon;
 
 /**
  *
@@ -29,6 +34,9 @@ public class DetalleController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    DetalleModel modelo = new DetalleModel();
+    DetalleCupon detalle = null;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -103,7 +111,12 @@ public class DetalleController extends HttpServlet {
     }// </editor-fold>
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            request.setAttribute("listaDetalles", modelo.listar());
+            request.getRequestDispatcher("/DetalleCupon/GetDetalleCupon.jsp").forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void insertar(HttpServletRequest request, HttpServletResponse response) {

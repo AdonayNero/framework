@@ -9,6 +9,6 @@
 <!DOCTYPE html>
 <html>
     <%
-        response.sendRedirect("oferta.do?op=inicio");
+       response.sendRedirect("oferta.do?op=inicio");
     %>
 </html>

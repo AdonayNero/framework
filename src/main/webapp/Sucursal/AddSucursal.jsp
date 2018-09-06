@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,8 +15,8 @@
     
 
 <body>
-    
-<jsp:include page="../pages/nav_folder.html" />
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../pages/nav_folder.jsp" />
 <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -39,10 +38,9 @@
                                 <label class="label-input100" for="idEmpresa">Selecciona una Empresa *</label>
 				<div class="wrap-input100 validate-input" data-validate="Selecciona una empresa">
 					<select id="idEmpresa" class="form-control" name="idEmpresa">
-                                            <option selected>Seleccione una empresa</option>
-                                            <c:forEach items="${requestScope.listarEmp}" var="emp">
-                                            <option value="${emp.id}">${emp.nombre}</option>
-                                            
+					    <option selected>Seleccione un Empresa</option>
+                                            <c:forEach items="${requestScope.listarEmpresa}" var="empresa" varStatus="i">
+                                            <option value="${empresa.id}">${empresa.nombre}</option>
                                             </c:forEach>
                                         </select>
 					<span class="focus-input100"></span>
@@ -72,7 +70,6 @@
 					    <option selected>Seleccione un encargado</option>
                                             <c:forEach items="${requestScope.listarUser}" var="user" >
                                             <option value="${user.id}">${user.nombre}</option>
-                                            
                                             </c:forEach>
                                         </select>
                                             <span class="focus-input100"></span>

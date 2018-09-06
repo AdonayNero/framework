@@ -18,7 +18,7 @@
     <body>
         <c:if test="${empty sessionScope.acceso ||   sessionScope.acceso eq 'usuario'}">
             <%
-                    response.sendRedirect("oferta.do?op=inicio");
+                 response.sendRedirect("oferta.do?op=inicio");
             %>
         </c:if>
         <jsp:include page="../pages/nav_folder.jsp" />

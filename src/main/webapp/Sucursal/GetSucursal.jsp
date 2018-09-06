@@ -10,7 +10,7 @@
   <jsp:include page="../pages/head_folder.html" />
     </head>
     <body>
-        <jsp:include page="../pages/nav_folder.html" />
+        <jsp:include page="../pages/nav_folder.jsp" />
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
