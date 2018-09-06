@@ -146,10 +146,18 @@ public class UsuarioController extends HttpServlet {
             user.setDui(request.getParameter("dui"));
             user.setDireccion(request.getParameter("direccion"));
             if (modelo.insertar(user)>0) {
-                response.sendRedirect(request.getContextPath() +"/usuario.do?op=listar");
+                response.sendRedirect(request.getContextPath() +"/Registro.jsp");
             }
+                
+            
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                response.sendRedirect(request.getContextPath() +"/usuario.do?op=nuevo");
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex1) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            
         }
         
     }

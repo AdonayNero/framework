@@ -13,7 +13,12 @@
  <jsp:include page="../pages/head_folder.html" />
 </head>
 <body>
-<jsp:include page="../pages/nav_folder.html" />
+<jsp:include page="../pages/nav_folder.jsp" />
+<c:if test="${empty sessionScope.acceso ||  sessionScope.acceso eq 'adminEmp' ||  sessionScope.acceso eq 'usuario'}">
+    <%
+        response.sendRedirect("oferta.do?op=inicio");
+    %>
+</c:if>
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">

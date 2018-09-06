@@ -30,9 +30,14 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <div class="dropdown-divider"></div>
+            <c:if test="${not empty sessionScope.acceso}">
             <a class="dropdown-item" href="${pageContext.request.contextPath}/usuario.do?op=outlogin">Logout</a>
+            </c:if>
+            <c:if test="${empty sessionScope.acceso }">
+            <a class="dropdown-item" href="${pageContext.request.contextPath}/usuario.do?op=nuevo">Regsitrarse Cliente</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="${pageContext.request.contextPath}/InicioSesion.jsp">Ingresar</a>
+            </c:if>
           </div>
         </li>
       </ul>
@@ -40,19 +45,19 @@
     </nav>
 
 
-
+<c:if test="${not empty sessionScope.acceso}">
     <div id="wrapper">
            <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         
-          <c:if test="${sessionScope.acceso eq 'admin'}">
+          
                         <li class="nav-item active">
           <a class="nav-link" href="index.jsp">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Menu Inicio</span>
           </a>
         </li>
-        
+        <c:if test="${sessionScope.acceso eq 'admin'}">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -64,6 +69,19 @@
             <a class="dropdown-item" href="Categoria/UpdateCategoria.jsp">Modificar Categoria</a>
           </div>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Roles</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="Rol/GetRol.jsp">Lista de Roles</a>
+            <a class="dropdown-item" href="Rol/AddRol.jsp">Agregar Rol</a>
+            <a class="dropdown-item" href="Rol/UpdateRol.jsp">Modificar Rol</a>
+          </div>
+        </li>
+        </c:if>
+        <c:if test="${sessionScope.acceso eq 'admin'  or sessionScope.acceso eq 'adminEmp'}">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -86,28 +104,25 @@
             <a class="dropdown-item" href="Empresa/UpdateEmpresa.jsp">Modificar Empresa</a>
           </div>
         </li>
+       </c:if>
+        <c:if test="${sessionScope.acceso eq 'admin' || sessionScope.acceso eq 'usuario' || sessionScope.acceso eq 'adminEmp'}">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
             <span>Ofertas</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+         
+        
             <a class="dropdown-item" href="Oferta/GetOferta.jsp">Lista de Ofertas</a>
+        <c:if test="${sessionScope.acceso eq 'admin'  or sessionScope.acceso eq 'adminEmp'}">    
             <a class="dropdown-item" href="Oferta/AddOferta.jsp">Agregar Oferta</a>
             <a class="dropdown-item" href="Oferta/UpdateOferta.jsp">Modificar Oferta</a>
+        </c:if>
           </div>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Roles</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="Rol/GetRol.jsp">Lista de Roles</a>
-            <a class="dropdown-item" href="Rol/AddRol.jsp">Agregar Rol</a>
-            <a class="dropdown-item" href="Rol/UpdateRol.jsp">Modificar Rol</a>
-          </div>
-        </li>
+        </c:if>
+        <c:if test="${sessionScope.acceso eq 'admin'  or sessionScope.acceso eq 'adminEmp'}">         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -119,17 +134,25 @@
             <a class="dropdown-item" href="Sucursal/UpdateSucursal.jsp">Modificar Sucursal</a>
           </div>
         </li>
+        </c:if>
+        <c:if test="${sessionScope.acceso eq 'admin' or sessionScope.acceso eq 'usuario' or sessionScope.acceso eq 'adminEmp'}">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
             <span>Usuarios</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          
+            <a class="dropdown-item" href="Usuario/UpdateUsuario.jsp">Modificar Usuarios</a> 
+        <c:if test="${sessionScope.acceso eq 'admin'  or sessionScope.acceso eq 'adminEmp'}">      
             <a class="dropdown-item" href="Usuario/GetUsuario.jsp">Lista de Usuarios</a>
             <a class="dropdown-item" href="Usuario/AddUsuario.jsp">Agregar Usuario</a>
-            <a class="dropdown-item" href="Usuario/UpdateUsuario.jsp">Modificar Usuarios</a>
+        </c:if>    
+            
           </div>
         </li>
+        </c:if>  
+        <c:if test="${sessionScope.acceso eq 'admin'  or sessionScope.acceso eq 'adminEmp'}">         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -137,11 +160,9 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="Venta/GetVenta.jsp">Lista de Ventas</a>
-            <a class="dropdown-item" href="Venta/AddVenta.jsp">Agregar Venta</a>
-            <a class="dropdown-item" href="Venta/UpdateVenta.jsp">Modificar Venta</a>
           </div>
         </li>
-        
+        </c:if>
         
         
         
@@ -156,6 +177,8 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
         </li>
-         </c:if>
+         
         
       </ul>
+    
+</c:if>

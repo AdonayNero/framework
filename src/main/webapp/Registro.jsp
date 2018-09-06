@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <jsp:include page="./pages/head_folder.html" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Latest compiled and minified CSS -->
@@ -23,57 +24,22 @@
         <title>Registro de usuarios</title>
     </head>
     <body>
+        <jsp:include page="./pages/nav_folder.jsp" />
         <div class="container">
-            <div class="row">
-                <h3>Registro de usuario</h3>
+            <div class="card text-center">
+            <div class="card-header">
+                Confirmacion
             </div>
-            <div class="row col-md-10" >
-                <c:if test="${not empty requestScope.listaErrores}">
-                    <div class="alert alert-danger">
-                        <ul>
-                            <c:forEach var="error" items="${requestScope.listaErrores}">
-                                <li>${error}</li>
-                                </c:forEach>
-                        </ul>
-                    </div>
-                </c:if>
-                <form action="${base}/usuarios.do" method="POST">
-                    <input type="hidden" name="operacion" value="insertar"/>
-                    <div class="col-md-8">
-                        <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>
-                        <div class="form-group">
-                            <label for="usuario">Nombre de usuario:</label>
-                            <div class="input-group">
-                                <input type="text" name="usuario" id="usuario" class="form-control" value="${usuario.usuario}"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="correo">Telefono</label>
-                            <div class="input-group">
-                                <input type="text" name="tel" id="tel" class="form-control" value="${usuario.telefono}"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="correo">Correo:</label>
-                            <div class="input-group">
-                                <input type="email" name="correo" id="correo" class="form-control" value="${usuario.correo}"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <div class="input-group">
-                                <input type="password" name="password" class="form-control" id="password" value="${usuario.pass}"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-info">Registrar</button>
-                        <button type="reset" class="btn btn-danger">Limpiar</button>
-                    </div>
-                </form>
+            <div class="card-body">
+                <h5 class="card-title">Revisa tu correo</h5>
+                <p class="card-text">Se ha generado un correo para que puedas completar tu registrp.</p>
+                <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-primary">Regresar Pagina Principal</a>
             </div>
-        </div> 
+            <div class="card-footer text-muted">
+                Gracias por preferirnos
+            </div>
+            </div>
+        </div>
+            <jsp:include page="./pages/footer_folder.html" />
     </body>
 </html>

@@ -2,6 +2,15 @@
     Document   : UpdateRol
     Created on : 31-ago-2018, 16:30:58
     Author     : Manuel Orellana
+<c:if test="${empty sessionScope.usuario }">
+                        <div class="alert alert-danger">
+                            <ul>
+                                <%
+                                    response.sendRedirect("index.jsp");
+                                %>
+                            </ul>
+                        </div>
+ </c:if>
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,9 +21,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <jsp:include page="../pages/head_folder.html" />
-    <jsp:include page="../pages/nav_folder.html" />
+    <jsp:include page="../pages/nav_folder.jsp" />
 </head>
 <body>
+    <c:if test="${empty sessionScope.acceso ||  not sessionScope.acceso eq 'admin'}">
+    <%
+        response.sendRedirect("oferta.do?op=inicio");
+    %>
+</c:if>
 
 <div id="content-wrapper">
             <div class="container-fluid">

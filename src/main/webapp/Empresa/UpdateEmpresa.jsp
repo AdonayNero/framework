@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,9 +14,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
      
     <jsp:include page="../pages/head_folder.html" />
-    <jsp:include page="../pages/nav_folder.html" />
+    
     </head>
     <body>
+        <c:if test="${empty sessionScope.acceso ||   sessionScope.acceso eq 'usuario'}">
+                 <%
+                         response.sendRedirect("oferta.do?op=inicio");
+                 %>
+        </c:if>
+<jsp:include page="../pages/nav_folder.jsp" />
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">

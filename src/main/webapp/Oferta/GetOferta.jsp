@@ -13,7 +13,12 @@
     
     </head>
     <body>
-        <jsp:include page="../pages/nav_folder.html" />
+        <c:if test="${empty sessionScope.acceso ||   sessionScope.acceso eq 'usuario'}">
+                 <%
+                         response.sendRedirect("oferta.do?op=inicio");
+                 %>
+        </c:if>
+        <jsp:include page="../pages/nav_folder.jsp" />
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">

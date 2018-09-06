@@ -16,7 +16,12 @@
     
     </head>
     <body>
-        <jsp:include page="../pages/nav_folder.html" />
+        <c:if test="${sessionScope.acceso eq 'adminEmp' ||  sessionScope.acceso eq 'usuario'}">
+    <%
+        response.sendRedirect("oferta.do?op=inicio");
+    %>
+</c:if>
+        <jsp:include page="../pages/nav_folder.jsp" />
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -50,7 +55,7 @@
 
 				<label class="label-input100" for="descripcion">Descripción *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Escriba una descripcion">
-					<textarea id="descripcion" class="input100" name="descripcion" value="${cat.descripcion}"></textarea>
+					<textarea id="descripcion" class="input100" name="descripcion" >${cat.descripcion}</textarea>
 					<span class="focus-input100"></span>
 				</div>
 

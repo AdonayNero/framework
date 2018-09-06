@@ -16,18 +16,6 @@
     <jsp:include page="../pages/nav_folder.jsp" />
     </head>
     <body>
-        
-         <c:if test="${empty sessionScope.usuario }">
-                        <div class="alert alert-danger">
-                            <ul>
-                                <%
-                                    response.sendRedirect("index.jsp");
-                                %>
-                            </ul>
-                        </div>
-         </c:if>
-        
-        
          <div id="content-wrapper">
             <div class="container-fluid">
                      <div class="card mb-3">
@@ -73,22 +61,21 @@
 					<span class="focus-input100"></span>
 				</div>
                                                 
-                                <label class="label-input100" for="tipoAcceso">Selecciona el Tipo de Acceso *</label>
+                                <label class="label-input100" for="tipoAcceso">Selecciona el Tipo de Cliente *</label>
 				<div class="wrap-input100 validate-input" data-validate="Selecciona un tipo de acceso">
 					<select id="tipoAcceso" class="form-control" name="tipoAcceso">
-                                            <option selected>Seleccione un Tipo de Acceso</option>
-                                            <c:forEach items="${requestScope.listaRoles}" var="rol" varStatus="i">
-                                            <option value="${rol.id}">${rol.nombre}</option>
+                                            <option selected>Seleccione un tipo cliente</option>
+                                            <option value="3">Empresa</option>
+                                            <option value="2">Cliente</option>
+                                            <c:if test="${not empty sessionScope.acceso}">
+                                                <option value="4">Dependiente</option>
+                                                <c:if test="${not empty sessionScope.acceso}">
+                                                    <option value="1">Administrador</option>
+                                                </c:if>
+                                            </c:if>
                                             
-                                            </c:forEach>
                                         </select>
                                         <span class="focus-input100"></span>
-				</div>
-
-                                <label class="label-input100" for="foto">Ingrese una Foto de Perfil *</label>
-				<div class="wrap-input100" validate-input data-validate="Seleccione una foto: jpg/png">
-					<input id="foto" class="form-control-file" type="file" name="foto">
-					<span class="focus-input100"></span>
 				</div>
                                                                                               
 				<label class="label-input100" for="direccion">Ingrese su Dirección *</label>
@@ -101,7 +88,10 @@
 					<button class="contact100-form-btn">
 						Enviar Usuario
 					</button>
+                                    
+                                    <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-warning ml-3">Cancelar</a>
 				</div>
+                               
 			</form>
 
 			<div class="contact100-more flex-col-c-m" style="background-image: url('style/Form/images/bg-01.jpg');">

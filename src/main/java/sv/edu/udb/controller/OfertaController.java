@@ -199,7 +199,7 @@ public class OfertaController extends HttpServlet {
     private void inicio(HttpServletRequest request, HttpServletResponse response) {
         try {
             request.setAttribute("listaOferta", modelo.listar());
-            request.getRequestDispatcher("/Oferta/GetOferta.jsp").forward(request, response);
+            request.getRequestDispatcher("/inicioPublic.jsp").forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(OfertaController.class.getName()).log(Level.SEVERE, null, ex);
         }
